@@ -1,0 +1,20 @@
+{
+  "projectId": "10690213745133039608",
+  "projectTitle": "AI Real Estate Advisor & Property Matcher",
+  "designSystem": {
+    "name": "assets/b4d7851b2024407fbab4b25f872e8b71",
+    "displayName": "Sovereign Asset & Capital",
+    "theme": "LIGHT",
+    "font": "Plus Jakarta Sans & Inter",
+    "primaryColor": "#064e3b"
+  },
+  "screens": [
+    {
+      "screenId": "9321b591709b4c108287271b51ea08be",
+      "title": "EstateMind AI | Real Estate Advisor",
+      "deviceType": "DESKTOP",
+      "htmlPath": ".stitch/designs/screen_9321b591.html",
+      "screenshotUrl": "https://stitch.googleapis.com/v1/projects/10690213745133039608/files/4a5a2f195f4d42ef85e9fb92e24a32e6:download"
+    }
+  ]
+}

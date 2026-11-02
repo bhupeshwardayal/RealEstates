@@ -1,0 +1,232 @@
+import json
+from app.database.db import SessionLocal, Property, init_db
+
+SAMPLE_PROPERTIES = [
+    {
+        "title": "Verdant Heights 3BHK",
+        "locality": "Hinjawadi Phase 1",
+        "city": "Pune",
+        "price_inr": 12200000.0,
+        "bhk_count": 3,
+        "carpet_area_sqft": 1680,
+        "amenities": ["Covered Parking", "Clubhouse", "Gymnasium", "Swimming Pool", "24/7 Security", "EV Charging", "Power Backup", "Jogging Track"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.5912,
+        "longitude": 73.7389,
+        "description": "Luxurious 3 BHK apartment located 5 minutes from Infosys and Wipro circle in Hinjawadi Phase 1. Features panoramic hill views, imported marble flooring, dual balconies, modular kitchen, and high rental demand corridor with 7.1% estimated gross yield.",
+        "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100028911",
+        "annual_rent_estimate": 866000.0
+    },
+    {
+        "title": "Skyline Residency 2BHK",
+        "locality": "Baner-Balewadi Link Road",
+        "city": "Pune",
+        "price_inr": 8450000.0,
+        "bhk_count": 2,
+        "carpet_area_sqft": 1120,
+        "amenities": ["Covered Parking", "Children Play Area", "High-speed Elevators", "CCTV Surveillance", "Solar Water Heating", "Multipurpose Hall"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.5724,
+        "longitude": 73.7845,
+        "description": "Modern, well-ventilated 2 BHK apartment in prime Baner corridor under 85 Lakhs. Outstanding connectivity to Hinjawadi IT Park (15 mins), Orchid School, and Metro Station. Excellent layout with zero dead space and low monthly maintenance.",
+        "image_url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100031402",
+        "annual_rent_estimate": 580000.0
+    },
+    {
+        "title": "The Grand Pavilion 4BHK Penthouse",
+        "locality": "Koregaon Park Annexe",
+        "city": "Pune",
+        "price_inr": 28500000.0,
+        "bhk_count": 4,
+        "carpet_area_sqft": 2850,
+        "amenities": ["Private Terrace Deck", "Infinity Pool", "Private Elevator Access", "Concierge Service", "Home Automation", "3 Covered Car Parks", "Spa & Sauna"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.5362,
+        "longitude": 73.9015,
+        "description": "Bespoke 4 BHK luxury penthouse overlooking lush green canopies of Koregaon Park. Boasts a private infinity plunge pool, double-height living room ceiling, bespoke Italian fittings, and elite neighborhood lifestyle.",
+        "image_url": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100019804",
+        "annual_rent_estimate": 1767000.0
+    },
+    {
+        "title": "Aura Tech Suites 1BHK / Studio",
+        "locality": "Hinjawadi Phase 2",
+        "city": "Pune",
+        "price_inr": 4200000.0,
+        "bhk_count": 1,
+        "carpet_area_sqft": 560,
+        "amenities": ["Co-working Space", "High Speed WiFi", "Cafeteria", "Laundromat", "Gym", "Covered Bike/Car Parking", "Keycard Entry"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.6015,
+        "longitude": 73.7250,
+        "description": "High rental yield studio apartment designed for tech professionals and corporate leases. Located right next to Cognizant and TCS campuses in Hinjawadi Phase 2. Delivers superior 7.8% gross rental return.",
+        "image_url": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100045210",
+        "annual_rent_estimate": 328000.0
+    },
+    {
+        "title": "Zenith Riverfront 3BHK",
+        "locality": "Kharadi Bypass",
+        "city": "Pune",
+        "price_inr": 11500000.0,
+        "bhk_count": 3,
+        "carpet_area_sqft": 1540,
+        "amenities": ["River View Promenade", "Covered Parking", "Tennis Court", "Clubhouse", "Crèche & Daycare", "Water Softener Plant"],
+        "possession_status": "Under Construction",
+        "latitude": 18.5518,
+        "longitude": 73.9421,
+        "description": "Serene riverfront 3 BHK residence located 7 minutes from EON Free Zone and World Trade Center Kharadi. Walkable distance to EuroSchool and Phoenix Marketcity. Possession in Dec 2025.",
+        "image_url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100039811",
+        "annual_rent_estimate": 780000.0
+    },
+    {
+        "title": "Urban Oasis 2BHK",
+        "locality": "Wakad Kaspate Vasti",
+        "city": "Pune",
+        "price_inr": 7200000.0,
+        "bhk_count": 2,
+        "carpet_area_sqft": 980,
+        "amenities": ["Covered Parking", "Rooftop Garden", "Indoor Games", "Solar Lighting", "24/7 Security", "Fire Fighting System"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.5982,
+        "longitude": 73.7681,
+        "description": "Exceptional value 2 BHK apartment in Wakad under 75 Lakhs with immediate possession. Just 10 minutes to Hinjawadi IT Hub via Mumbai-Bangalore Highway. Near Indira College and Phoenix Millennium Mall.",
+        "image_url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100022390",
+        "annual_rent_estimate": 504000.0
+    },
+    {
+        "title": "Emerald Woods Villa 4BHK",
+        "locality": "Wardha Road, MIHAN",
+        "city": "Nagpur",
+        "price_inr": 14500000.0,
+        "bhk_count": 4,
+        "carpet_area_sqft": 2600,
+        "amenities": ["Private Lawn Garden", "Covered Dual Parking", "Gated Community", "Clubhouse", "Badminton Court", "Solar Energy Grid"],
+        "possession_status": "Ready to Move",
+        "latitude": 21.0658,
+        "longitude": 79.0524,
+        "description": "Independent 4 BHK gated villa close to MIHAN IT SEZ, AIIMS Nagpur, and IIM Nagpur campus. Features spacious private lawn, double covered car porch, quiet green environment, and rapid capital appreciation potential.",
+        "image_url": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P50500018273",
+        "annual_rent_estimate": 725000.0
+    },
+    {
+        "title": "Raisoni Boulevard 3BHK",
+        "locality": "Civil Lines",
+        "city": "Nagpur",
+        "price_inr": 11000000.0,
+        "bhk_count": 3,
+        "carpet_area_sqft": 1750,
+        "amenities": ["Covered Basement Parking", "Smart Home Automation", "Gymnasium", "Banquet Hall", "24/7 Power Backup"],
+        "possession_status": "Ready to Move",
+        "latitude": 21.1539,
+        "longitude": 79.0669,
+        "description": "Premium 3 BHK residential apartment situated in prestigious Civil Lines, Nagpur. Tree-lined avenues, proximity to high court, administrative centers, top healthcare institutes, and pristine city parks.",
+        "image_url": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P50500029104",
+        "annual_rent_estimate": 660000.0
+    },
+    {
+        "title": "Lakeview Serenity 2BHK",
+        "locality": "Whitefield",
+        "city": "Bangalore",
+        "price_inr": 9200000.0,
+        "bhk_count": 2,
+        "carpet_area_sqft": 1250,
+        "amenities": ["Covered Parking", "Lakeview Balcony", "Swimming Pool", "Jogging Track", "Squash Court", "Organic Waste Converter"],
+        "possession_status": "Ready to Move",
+        "latitude": 12.9698,
+        "longitude": 77.7500,
+        "description": "Picturesque 2 BHK apartment overlooking Varthur Lake in Whitefield. Minutes away from ITPL, Prestige Tech Park, and upcoming purple line metro station. Excellent school connectivity (The Deens Academy).",
+        "image_url": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "PRM/KA/RERA/1251/310/PR/171015/000412",
+        "annual_rent_estimate": 644000.0
+    },
+    {
+        "title": "Signature Towers 3BHK Sea-View",
+        "locality": "Worli Sea Face",
+        "city": "Mumbai",
+        "price_inr": 58000000.0,
+        "bhk_count": 3,
+        "carpet_area_sqft": 2100,
+        "amenities": ["Unobstructed Arabian Sea View", "Valet Parking", "Temperature Controlled Pool", "Sky Lounge", "24/7 Security", "Private Butler Service"],
+        "possession_status": "Ready to Move",
+        "latitude": 19.0178,
+        "longitude": 72.8152,
+        "description": "Elite 3 BHK residence with breathtaking panoramic vistas of the Arabian Sea and Bandra-Worli Sea Link. Ultra-prime financial capital address with world-class amenities and immediate ownership.",
+        "image_url": "https://images.unsplash.com/photo-1515263487990-61b07816b324?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P51900008819",
+        "annual_rent_estimate": 2900000.0
+    },
+    {
+        "title": "CyberPark Heights 2BHK",
+        "locality": "Hitec City / Madhapur",
+        "city": "Hyderabad",
+        "price_inr": 8900000.0,
+        "bhk_count": 2,
+        "carpet_area_sqft": 1220,
+        "amenities": ["Covered Parking", "Clubhouse", "Gym", "Landscaped Gardens", "Power Backup", "Intercom"],
+        "possession_status": "Ready to Move",
+        "latitude": 17.4435,
+        "longitude": 78.3772,
+        "description": "Sleek 2 BHK apartment situated at the center of Hyderabad's Silicon Corridor. 5 minutes from Cyber Towers and Inorbit Mall. High rental yield with dependable corporate tenant demand.",
+        "image_url": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "TSRERA: P02400001928",
+        "annual_rent_estimate": 623000.0
+    },
+    {
+        "title": "Green Acres Eco Estate 3BHK",
+        "locality": "Bavdhan Valley",
+        "city": "Pune",
+        "price_inr": 9600000.0,
+        "bhk_count": 3,
+        "carpet_area_sqft": 1420,
+        "amenities": ["Covered Parking", "Organic Garden", "Rainwater Harvesting", "Yoga Deck", "Pet Park", "Cycling Track"],
+        "possession_status": "Ready to Move",
+        "latitude": 18.5133,
+        "longitude": 73.7712,
+        "description": "Peaceful 3 BHK eco-friendly home surrounded by NDA hills in Bavdhan. 15 minutes easy drive to Kothrud and Paud Road. Exceptional air quality, zero traffic noise, and great family amenities.",
+        "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+        "rera_id": "MahaRERA: P52100017409",
+        "annual_rent_estimate": 672000.0
+    }
+]
+
+def seed_properties():
+    init_db()
+    db = SessionLocal()
+    try:
+        count = db.query(Property).count()
+        if count == 0:
+            for item in SAMPLE_PROPERTIES:
+                prop = Property(
+                    title=item["title"],
+                    locality=item["locality"],
+                    city=item["city"],
+                    price_inr=item["price_inr"],
+                    bhk_count=item["bhk_count"],
+                    carpet_area_sqft=item["carpet_area_sqft"],
+                    amenities=item["amenities"],
+                    possession_status=item["possession_status"],
+                    latitude=item.get("latitude"),
+                    longitude=item.get("longitude"),
+                    description=item.get("description"),
+                    image_url=item.get("image_url"),
+                    rera_id=item.get("rera_id"),
+                    annual_rent_estimate=item.get("annual_rent_estimate")
+                )
+                db.add(prop)
+            db.commit()
+            print(f"Successfully seeded {len(SAMPLE_PROPERTIES)} properties into database.")
+        else:
+            print(f"Database already contains {count} properties.")
+    finally:
+        db.close()
+
+if __name__ == "__main__":
+    seed_properties()
+

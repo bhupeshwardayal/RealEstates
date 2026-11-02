@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EstateMind AI | Real Estate Advisor</title>
+<!-- Google Fonts: Plus Jakarta Sans & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "secondary": "#545f73",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#80bea6",
+            "surface-dim": "#d2d9f4",
+            "error": "#ba1a1a",
+            "on-tertiary-container": "#53c2b5",
+            "surface-variant": "#dae2fd",
+            "on-background": "#131b2e",
+            "on-error-container": "#93000a",
+            "on-error": "#ffffff",
+            "on-secondary-fixed-variant": "#3c475a",
+            "outline-variant": "#bfc9c3",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#004d46",
+            "secondary-fixed": "#d8e3fb",
+            "primary-fixed": "#b0f0d6",
+            "outline": "#707974",
+            "background": "#faf8ff",
+            "surface-container-high": "#e2e7ff",
+            "surface-container": "#eaedff",
+            "tertiary": "#00342f",
+            "on-secondary-container": "#586377",
+            "on-surface": "#131b2e",
+            "secondary-fixed-dim": "#bcc7de",
+            "on-tertiary-fixed-variant": "#005049",
+            "tertiary-fixed": "#89f5e7",
+            "on-primary-fixed-variant": "#0b513d",
+            "inverse-on-surface": "#eef0ff",
+            "inverse-primary": "#95d3ba",
+            "surface-bright": "#faf8ff",
+            "surface-tint": "#2b6954",
+            "primary": "#003527",
+            "primary-fixed-dim": "#95d3ba",
+            "on-secondary-fixed": "#111c2d",
+            "tertiary-fixed-dim": "#6bd8cb",
+            "on-tertiary-fixed": "#00201d",
+            "surface-container-low": "#f2f3ff",
+            "secondary-container": "#d5e0f8",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#283044",
+            "on-primary-fixed": "#002117",
+            "surface": "#faf8ff",
+            "on-surface-variant": "#404944",
+            "on-primary": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-container": "#064e3b",
+            "surface-container-highest": "#dae2fd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "2rem",
+            "space-sm": "0.5rem",
+            "margin-desktop": "4rem",
+            "space-xs": "0.25rem",
+            "margin": "1.25rem",
+            "gutter": "1.5rem",
+            "space-xl": "2.5rem",
+            "margin-tablet": "2.5rem",
+            "space-lg": "1.5rem",
+            "space-md": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Plus Jakarta Sans"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "metric-lg": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "body-lg": ["Inter"],
+            "metric-xl": ["Plus Jakarta Sans"],
+            "display-hero-mobile": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "label-caps": ["Inter"]
+          },
+          "fontSize": {
+            "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700"}],
+            "headline-md": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "body-sm": ["13px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "metric-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+            "metric-xl": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "display-hero-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-md": ["15px", {"lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "display-hero": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+            "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #064E3B;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #064E3B;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar (Shared Component Execution) -->
+<header class="docked full-width top-0 sticky z-50 bg-surface-container-lowest/80 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center w-full px-6 lg:px-margin-desktop max-w-[1440px] mx-auto h-20">
+<!-- Brand Logo / Product Name -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm font-bold tracking-tight text-primary">EstateMind AI | Real Estate Advisor</span>
+<span class="text-label-caps font-label-caps text-secondary uppercase tracking-wider">Institutional Property Matcher</span>
+</div>
+</div>
+<!-- Navigation Links (Active mapping: Property Discovery / Market Intelligence) -->
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 transition-colors text-label-md font-label-md" href="#properties">Market Intelligence</a>
+<a class="text-secondary hover:text-on-surface transition-colors duration-150 text-label-md font-label-md" href="#discovery">Properties</a>
+<a class="text-secondary hover:text-on-surface transition-colors duration-150 text-label-md font-label-md" href="#calculator">Financial Engine</a>
+<a class="text-secondary hover:text-on-surface transition-colors duration-150 text-label-md font-label-md" href="#advisory">Advisory</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-3">
+<!-- Currency Pill -->
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-surface-container-low rounded-full border border-outline-variant/40 text-on-surface text-label-md font-label-md">
+<span class="material-symbols-outlined text-sm text-secondary">currency_rupee</span>
+<span>INR (₹ Lakhs/Cr)</span>
+</div>
+<!-- Trailing Icon Actions -->
+<button aria-label="Notifications" class="p-2 rounded-lg text-secondary hover:bg-surface-container-high/50 transition-all duration-150" title="Notifications">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<button aria-label="Wallet" class="p-2 rounded-lg text-secondary hover:bg-surface-container-high/50 transition-all duration-150" title="Wallet">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+</button>
+<!-- Book Consultation Primary CTA -->
+<button class="bg-primary text-on-primary hover:bg-primary-container px-5 py-2.5 rounded-lg text-label-md font-label-md font-semibold transition-all shadow-sm flex items-center gap-2 active:scale-[0.99]">
+<span>Book Consultation</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Hero Section: Split Screen (AI Advisor & Real-time Financial Simulator) -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-6 lg:px-margin-desktop py-8 md:py-12 flex flex-col gap-12">
+<!-- Top Sub-headline Banner -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant/30 pb-6">
+<div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed/40 text-on-primary-fixed-variant text-label-caps font-label-caps mb-3">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          GROUNDED MULTI-VECTOR ARCHITECTURE &amp; RERA KNOWLEDGE GRAPH
+        </div>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Institutional Property Discovery &amp; Quantitative Advisory</h1>
+</div>
+<div class="flex items-center gap-4 text-body-sm font-body-sm text-secondary">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base text-primary">verified</span> 100% RERA Verified</span>
+<span class="hidden sm:inline">|</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-base text-primary">analytics</span> Quantitative Risk Matrix</span>
+</div>
+</div>
+<!-- Split-Screen Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- LEFT SIDE: AI Advisor Console (7 Cols) -->
+<section class="lg:col-span-7 bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-sm p-6 flex flex-col justify-between min-h-[580px]">
+<div>
+<!-- Console Header -->
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-5">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-base">psychology</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-primary">Grounded Real Estate Intelligence</h2>
+<p class="text-label-caps font-label-caps text-secondary">SRS V1.0 SEMANTIC VECTOR MATCHER</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-caps font-label-caps text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              ACTIVE NODE PUNE-WEST
+            </div>
+</div>
+<!-- Quick Suggestion Pills -->
+<div class="mb-5">
+<p class="text-label-caps font-label-caps text-secondary mb-2">PROMPT TEMPLATES</p>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-body-sm font-body-sm text-on-surface border border-outline-variant/30 transition-colors text-left flex items-center gap-1.5" onclick="fillPrompt('2-3 BHK near IT Park Pune &lt; ₹85L')">
+<span class="material-symbols-outlined text-sm text-primary">filter_alt</span>
+                2-3 BHK near IT Park Pune &lt; ₹85L
+              </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-body-sm font-body-sm text-on-surface border border-outline-variant/30 transition-colors text-left flex items-center gap-1.5" onclick="fillPrompt('Ready-to-move apartment with school transit')">
+<span class="material-symbols-outlined text-sm text-primary">directions_bus</span>
+                Ready-to-move apartment with school transit
+              </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-body-sm font-body-sm text-on-surface border border-outline-variant/30 transition-colors text-left flex items-center gap-1.5" onclick="fillPrompt('High rental yield investment (&gt;7.2%)')">
+<span class="material-symbols-outlined text-sm text-primary">trending_up</span>
+                High rental yield investment (&gt;7.2%)
+              </button>
+</div>
+</div>
+<!-- Active Chat Stream -->
+<div class="space-y-4 mb-6">
+<!-- User Bubble -->
+<div class="flex items-start gap-3 justify-end">
+<div class="bg-primary text-on-primary rounded-xl rounded-tr-none px-4 py-3 max-w-[85%] text-body-sm font-body-sm shadow-sm">
+                Looking for a spacious 3 BHK near Hinjawadi Phase 1, budget ₹1.2 Cr, close to international schools with immediate possession.
+              </div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+</div>
+<!-- AI Response Bubble -->
+<div class="flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-sm">smart_toy</span>
+</div>
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-xl rounded-tl-none p-4 max-w-[90%] space-y-3">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-xs">verified</span>
+                    VERIFIED GROUNDED 99.4% MATCH
+                  </div>
+<span class="text-label-caps font-label-caps text-secondary">Latency: 182ms</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface leading-relaxed">
+                  Found 4 highly-grounded matches meeting your criteria. Best fit: <strong>Verdant Heights</strong> with <strong>7.1%</strong> estimated gross rental yield and 10-min transit to Infosys campus. Verified registry document &amp; RERA approval attached.
+                </p>
+<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-outline-variant/20">
+<span class="text-label-caps font-label-caps text-secondary">GROUNDING SOURCES:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-xs text-on-surface border border-outline-variant/30 font-mono">MahaRERA: P52100028911</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest text-xs text-on-surface border border-outline-variant/30 font-mono">Registry Index II: Valid</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Input Area Form -->
+<div class="border-t border-outline-variant/30 pt-4">
+<form class="flex items-center gap-2 bg-surface-container-low p-1.5 rounded-xl border border-outline-variant/40 focus-within:border-primary transition-all">
+<button aria-label="Attach Parameters" class="p-2 text-secondary hover:text-primary transition-colors" title="Attach Parameters" type="button">
+<span class="material-symbols-outlined text-lg">attach_file</span>
+</button>
+<input class="flex-1 bg-transparent border-0 focus:ring-0 text-body-sm font-body-sm text-on-surface px-2 placeholder:text-secondary/60" id="aiQueryInput" placeholder="Type criteria, locality, budget or target cap rate..." type="text" value="Looking for a spacious 3 BHK near Hinjawadi Phase 1, budget ₹1.2 Cr, close to international schools with immediate possession."/>
+<button aria-label="Voice Search" class="p-2 text-secondary hover:text-primary transition-colors" title="Voice Search" type="button">
+<span class="material-symbols-outlined text-lg">mic</span>
+</button>
+<button class="bg-primary text-on-primary hover:bg-primary-container px-4 py-2 rounded-lg text-label-md font-label-md font-semibold transition-all flex items-center gap-1.5" type="button">
+<span>Find Properties</span>
+<span class="material-symbols-outlined text-sm">search</span>
+</button>
+</form>
+</div>
+</section>
+<!-- RIGHT SIDE: Financial Amortization & Yield Engine Card (5 Cols) -->
+<section class="lg:col-span-5 bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-sm p-6 flex flex-col justify-between" id="calculator">
+<div>
+<!-- Header -->
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-4 mb-5">
+<div>
+<h2 class="text-headline-sm font-headline-sm text-primary">Real-Time Loan &amp; Yield Calculator</h2>
+<p class="text-label-caps font-label-caps text-secondary">INSTANT CASH-FLOW &amp; AMORTIZATION SIMULATOR</p>
+</div>
+<div class="flex items-center gap-1 px-2 py-0.5 rounded bg-primary-fixed/50 text-on-primary-fixed-variant text-label-caps font-label-caps font-semibold">
+<span class="material-symbols-outlined text-xs">bolt</span> LIVE
+            </div>
+</div>
+<!-- Dynamic Sliders Form -->
+<div class="space-y-4">
+<!-- Slider 1: Property Value -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="text-label-caps font-label-caps text-secondary" for="propValueRange">PROPERTY VALUE</label>
+<span class="font-bold text-primary font-headline-sm" id="propValueDisplay">₹1.20 Cr</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer" id="propValueRange" max="50000000" min="3000000" step="500000" type="range" value="12000000"/>
+<div class="flex justify-between text-xs text-secondary mt-1">
+<span>₹30 Lakhs</span>
+<span>₹5.00 Cr</span>
+</div>
+</div>
+<!-- Slider 2: Down Payment -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="text-label-caps font-label-caps text-secondary" for="downPaymentRange">DOWN PAYMENT</label>
+<span class="font-bold text-primary font-headline-sm" id="downPaymentDisplay">₹24 Lakhs (20%)</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer" id="downPaymentRange" max="50" min="10" step="5" type="range" value="20"/>
+<div class="flex justify-between text-xs text-secondary mt-1">
+<span>10% (Min)</span>
+<span>50% (Max)</span>
+</div>
+</div>
+<!-- Slider 3: Loan Tenure -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="text-label-caps font-label-caps text-secondary" for="tenureRange">LOAN TENURE</label>
+<span class="font-bold text-primary font-headline-sm" id="tenureDisplay">20 Years</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer" id="tenureRange" max="30" min="5" step="1" type="range" value="20"/>
+<div class="flex justify-between text-xs text-secondary mt-1">
+<span>5 Yrs</span>
+<span>30 Yrs</span>
+</div>
+</div>
+<!-- Slider 4: Interest Rate -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<label class="text-label-caps font-label-caps text-secondary" for="interestRange">INTEREST RATE</label>
+<span class="font-bold text-primary font-headline-sm" id="interestDisplay">8.5% p.a.</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer" id="interestRange" max="12.0" min="7.0" step="0.1" type="range" value="8.5"/>
+<div class="flex justify-between text-xs text-secondary mt-1">
+<span>7.0%</span>
+<span>12.0%</span>
+</div>
+</div>
+</div>
+<!-- Dynamic Metrics Grid -->
+<div class="mt-6 p-4 rounded-xl bg-surface-container-low border border-outline-variant/30 space-y-3">
+<div class="flex justify-between items-baseline">
+<span class="text-label-caps font-label-caps text-secondary">MONTHLY EMI</span>
+<span class="text-metric-lg font-metric-lg text-primary tracking-tight" id="emiDisplay">₹83,326 <span class="text-sm font-normal text-secondary">/ mo</span></span>
+</div>
+<div class="h-px bg-outline-variant/30"></div>
+<div class="grid grid-cols-2 gap-2 pt-1 text-sm">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">EST. GROSS YIELD</span>
+<span class="font-semibold text-primary" id="yieldDisplay">6.85% (₹8.22L/yr)</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">LOAN-TO-VALUE (LTV)</span>
+<span class="font-semibold text-primary" id="ltvDisplay">80% (₹96.0L Principal)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Pre-approval CTA and Amortization Link -->
+<div class="pt-5 mt-4 border-t border-outline-variant/30 flex items-center justify-between">
+<button class="text-label-md font-label-md text-primary font-semibold hover:underline flex items-center gap-1" type="button">
+<span>View Full Amortization Table</span>
+<span class="material-symbols-outlined text-sm">table_chart</span>
+</button>
+<button class="px-4 py-2 bg-primary-container text-on-primary hover:bg-primary rounded-lg text-label-md font-label-md font-semibold transition-all" type="button">
+            Pre-approve Home Loan
+          </button>
+</div>
+</section>
+</div>
+<!-- PRIMARY CONTENT AREA: Top Grounded Property Matches -->
+<section class="mt-4" id="discovery">
+<!-- Section Header & Filter Controls -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+<div>
+<h2 class="text-headline-md font-headline-md text-primary">Top Grounded Property Matches</h2>
+<p class="text-body-sm font-body-sm text-secondary">RERA-verified institutional listings matched through multi-vector semantic scoring</p>
+</div>
+<!-- Filter & Sort Pills -->
+<div class="flex flex-wrap items-center gap-2">
+<button class="px-3 py-1.5 rounded-full bg-primary text-on-primary text-label-md font-label-md font-medium shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">check</span>
+            Semantic Relevance (Default)
+          </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-secondary text-label-md font-label-md border border-outline-variant/30 transition-colors">
+            Price: Low to High
+          </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-secondary text-label-md font-label-md border border-outline-variant/30 transition-colors">
+            Highest Yield (&gt;6.5%)
+          </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-low hover:bg-surface-container text-secondary text-label-md font-label-md border border-outline-variant/30 transition-colors">
+            Ready-to-Move Only
+          </button>
+</div>
+</div>
+<!-- Curated Property Grid: 3 Distinct Luxury Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- CARD 1 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<!-- Visual Canvas -->
+<div class="relative h-56 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A modern luxury residential architectural exterior of Verdant Heights featuring warm natural stone cladding, glass balconies, lush manicured landscape gardens, and soft morning sunlight. The architecture displays clean minimal lines with neutral tones and emerald foliage accents, capturing an institutional high-net-worth property aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuasa2QtNWgVA4pF4QRMwAFJV8gaG4m215KlQm3_KiFedN6K5yVjBuKhIEPjqtVvphOhkupcaicQYby1LpemUZewUY0IZ3x2ykmSqr0weiSEYrejbxJsT5attrsVIXB5NH3_in_Ieqb54cK0_qMPmrjlniekzadVjF-zzC3Dw9_VFfIon3GNM3T-t1ha7ai3-WWmno4RLzNd0O7E3aBzAbr8LsaI-B_CUr1-J-sPjOYEHOBDZ5WjT6W_n5z4aYm2gx7jyu44YeqbXW"/>
+<!-- Badges over image -->
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-2.5 py-1 rounded-full bg-emerald-950/80 backdrop-blur-md text-white text-label-caps font-label-caps flex items-center gap-1 border border-white/20">
+<span class="material-symbols-outlined text-xs text-emerald-400">verified</span> 99.4% AI Match
+                </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary text-label-caps font-label-caps border border-outline-variant/30">
+                  RERA APPROVED
+                </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="p-5">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-headline-sm font-headline-sm text-primary">Verdant Heights 3BHK</h3>
+<span class="text-metric-lg font-metric-lg text-primary">₹1.22 Cr</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                Hinjawadi Phase 1, Pune
+              </p>
+<!-- Metrics -->
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-outline-variant/20 mb-4 text-center">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CARPET AREA</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">1,680 sq.ft</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CONFIG</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">3 BHK + Balcony</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">STATUS</span>
+<span class="text-body-sm font-body-sm font-semibold text-emerald-700">Ready to Move</span>
+</div>
+</div>
+<!-- Financial Micro-matrix -->
+<div class="bg-surface-container-low rounded-lg p-3 flex justify-between items-center text-body-sm font-body-sm mb-4">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">EST. MONTHLY EMI</span>
+<span class="font-semibold text-primary">₹84,700 / mo</span>
+</div>
+<div class="text-right">
+<span class="text-label-caps font-label-caps text-secondary block">EST. GROSS YIELD</span>
+<span class="font-semibold text-emerald-700">7.1% p.a.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="p-5 pt-0 grid grid-cols-3 gap-2">
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Inspect Grounding
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Calculate Loan
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-on-primary bg-primary hover:bg-primary-container rounded transition-colors" type="button">
+              Schedule Tour
+            </button>
+</div>
+</article>
+<!-- CARD 2 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<!-- Visual Canvas -->
+<div class="relative h-56 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High-rise architectural glass facade of Skyline Residency in Pune captured at golden hour with floor-to-ceiling windows, sleek geometric balconies, and crisp architectural lines set against a soft serene sky. The composition emphasizes high-end urban living with minimal clutter and refined structural symmetry." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBupqrK7W9AU8QuOB91hkCnzGqkofYNf3uqtc7akd8ECVAQKboAU7G-MvZ0co0Hi1GnAEpLdXJNCeXIvwPFJbpMo1eYfy80fTPeNxtE9VVWGjcJ4XjDiL089dqDySzimS3lJ3thesD7qXFlOqgPCOqUZ4hdkviVUfwXinK9KtTAxNkWJwYo6kXu4FDbRfgbiMBpxbRyGZF3YLhAzpBDOQKZv5UtfeWjuRxApml3NBR8JIjmGjdoQmKlJFvDYTnWN_QwYZxKzZKnb8n6"/>
+<!-- Badges over image -->
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-2.5 py-1 rounded-full bg-emerald-950/80 backdrop-blur-md text-white text-label-caps font-label-caps flex items-center gap-1 border border-white/20">
+<span class="material-symbols-outlined text-xs text-emerald-400">verified</span> 96.8% AI Match
+                </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary text-label-caps font-label-caps border border-outline-variant/30">
+                  TOP RENTAL CORRIDOR
+                </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="p-5">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-headline-sm font-headline-sm text-primary">Skyline Residency 2BHK</h3>
+<span class="text-metric-lg font-metric-lg text-primary">₹88.5 Lakhs</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                Baner-Balewadi Link Road, Pune
+              </p>
+<!-- Metrics -->
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-outline-variant/20 mb-4 text-center">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CARPET AREA</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">1,120 sq.ft</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CONFIG</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">2 BHK Luxury</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">POSSESSION</span>
+<span class="text-body-sm font-body-sm font-semibold text-primary">Dec 2025</span>
+</div>
+</div>
+<!-- Financial Micro-matrix -->
+<div class="bg-surface-container-low rounded-lg p-3 flex justify-between items-center text-body-sm font-body-sm mb-4">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">EST. MONTHLY EMI</span>
+<span class="font-semibold text-primary">₹61,400 / mo</span>
+</div>
+<div class="text-right">
+<span class="text-label-caps font-label-caps text-secondary block">EST. GROSS YIELD</span>
+<span class="font-semibold text-emerald-700">6.9% p.a.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="p-5 pt-0 grid grid-cols-3 gap-2">
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Inspect Grounding
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Calculate Loan
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-on-primary bg-primary hover:bg-primary-container rounded transition-colors" type="button">
+              Schedule Tour
+            </button>
+</div>
+</article>
+<!-- CARD 3 -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+<div>
+<!-- Visual Canvas -->
+<div class="relative h-56 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="An ultra-luxury penthouse deck and living area at The Grand Pavilion overlooking Koregaon Park Pune with sweeping panoramic skyline views, private plunge pool, teakwood deck, and architectural glass partitions bathed in crisp natural daylight. The design embodies elite institutional real estate and understated luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhs0viHGWTtzVbEqQMSQ1-WDeQ4F_La-eq0O-7i1OEjS9-nw2mtFxI6i_lPJGXn_OrEkcIMMdC73aAIoitcIIK3YazS1X9YVm2qlhaE6xUv1cqFhx6FZmIAbld_zSh68XVJDZou_APTKPf9AlwtdgC5mgY3aiTUH1Zm7xffk1dLDerfrV2WOi8y5KnIRU7-HQZRFQSz_Hb-ctu-Y-UNuBO8r52srFUTdrFwIxMmOpRXjpqSVVJTsq356jMijHs3YmEwkQpSrLIBChO"/>
+<!-- Badges over image -->
+<div class="absolute top-3 left-3 flex gap-2">
+<span class="px-2.5 py-1 rounded-full bg-emerald-950/80 backdrop-blur-md text-white text-label-caps font-label-caps flex items-center gap-1 border border-white/20">
+<span class="material-symbols-outlined text-xs text-emerald-400">verified</span> 94.2% AI Match
+                </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-primary text-label-caps font-label-caps border border-outline-variant/30">
+                  ULTRA LUXURY
+                </span>
+</div>
+</div>
+<!-- Content Details -->
+<div class="p-5">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-headline-sm font-headline-sm text-primary">The Grand Pavilion Penthouse</h3>
+<span class="text-metric-lg font-metric-lg text-primary">₹2.85 Cr</span>
+</div>
+<p class="text-body-sm font-body-sm text-secondary flex items-center gap-1 mb-4">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                Koregaon Park Annexe, Pune
+              </p>
+<!-- Metrics -->
+<div class="grid grid-cols-3 gap-2 py-3 border-y border-outline-variant/20 mb-4 text-center">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CARPET AREA</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">2,850 sq.ft</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">CONFIG</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">4 BHK + Deck</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">STATUS</span>
+<span class="text-body-sm font-body-sm font-semibold text-emerald-700">Ready to Move</span>
+</div>
+</div>
+<!-- Financial Micro-matrix -->
+<div class="bg-surface-container-low rounded-lg p-3 flex justify-between items-center text-body-sm font-body-sm mb-4">
+<div>
+<span class="text-label-caps font-label-caps text-secondary block">EST. MONTHLY EMI</span>
+<span class="font-semibold text-primary">₹1.97 Lakhs / mo</span>
+</div>
+<div class="text-right">
+<span class="text-label-caps font-label-caps text-secondary block">EST. GROSS YIELD</span>
+<span class="font-semibold text-emerald-700">6.2% p.a.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="p-5 pt-0 grid grid-cols-3 gap-2">
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Inspect Grounding
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-secondary hover:text-primary bg-surface-container-low rounded border border-outline-variant/30 transition-colors" type="button">
+              Calculate Loan
+            </button>
+<button class="py-2 text-center text-xs font-semibold text-on-primary bg-primary hover:bg-primary-container rounded transition-colors" type="button">
+              Schedule Tour
+            </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Institutional Methodological Note -->
+<section class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/30 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">verified_user</span>
+</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-primary mb-1">Algorithmic Title Grounding &amp; RERA Index II Verification</h4>
+<p class="text-body-sm font-body-sm text-secondary max-w-2xl">
+            Every property recommended by EstateMind AI passes through an automated title verification pipeline, cross-referencing sub-registrar digital records, municipal cadastral layouts, and real-time bank pre-underwriting clearances.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-3 flex-shrink-0">
+<button class="px-4 py-2 text-label-md font-label-md font-semibold text-primary border border-outline-variant/50 rounded-lg hover:bg-surface-container transition-colors">
+          Download Whitepaper
+        </button>
+<button class="px-4 py-2 text-label-md font-label-md font-semibold bg-primary text-on-primary rounded-lg hover:bg-primary-container transition-colors">
+          Verify Document
+        </button>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component Execution) -->
+<footer class="docked full-width bottom-0 bg-surface-container-low border-t border-outline-variant/40 mt-16">
+<div class="w-full py-12 px-6 lg:px-margin-desktop max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+<!-- Brand & Academic SRS Credit -->
+<div class="flex flex-col items-center md:items-start gap-1">
+<span class="text-headline-sm font-headline-sm font-bold text-primary">EstateMind AI | Real Estate Advisor</span>
+<span class="text-body-sm font-body-sm text-secondary">
+          © 2025 EstateMind AI. SRS v1.0 Spec. Department of IT, G. H. Raisoni College of Engineering, Nagpur. All rights reserved.
+        </span>
+</div>
+<!-- Links from JSON -->
+<div class="flex flex-wrap justify-center md:justify-end items-center gap-6">
+<a class="text-secondary hover:text-primary transition-colors duration-150 hover:underline hover:underline-offset-4 text-label-caps font-label-caps" href="#">Institutional Methodology</a>
+<a class="text-secondary hover:text-primary transition-colors duration-150 hover:underline hover:underline-offset-4 text-label-caps font-label-caps" href="#">Risk &amp; Underwriting</a>
+<a class="text-secondary hover:text-primary transition-colors duration-150 hover:underline hover:underline-offset-4 text-label-caps font-label-caps" href="#">Regulatory Disclosure</a>
+<a class="text-secondary hover:text-primary transition-colors duration-150 hover:underline hover:underline-offset-4 text-label-caps font-label-caps" href="#">SRS v1.0 Documentation</a>
+<a class="text-secondary hover:text-primary transition-colors duration-150 hover:underline hover:underline-offset-4 text-label-caps font-label-caps" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<!-- Script for Dynamic Mortgage & Yield Calculation micro-interactions -->
+<script>
+    function fillPrompt(text) {
+      const input = document.getElementById('aiQueryInput');
+      if (input) {
+        input.value = text;
+        input.focus();
+      }
+    }
+
+    const propRange = document.getElementById('propValueRange');
+    const downRange = document.getElementById('downPaymentRange');
+    const tenureRange = document.getElementById('tenureRange');
+    const interestRange = document.getElementById('interestRange');
+
+    const propDisplay = document.getElementById('propValueDisplay');
+    const downDisplay = document.getElementById('downPaymentDisplay');
+    const tenureDisplay = document.getElementById('tenureDisplay');
+    const interestDisplay = document.getElementById('interestDisplay');
+
+    const emiDisplay = document.getElementById('emiDisplay');
+    const yieldDisplay = document.getElementById('yieldDisplay');
+    const ltvDisplay = document.getElementById('ltvDisplay');
+
+    function formatINR(val) {
+      if (val >= 10000000) {
+        return '₹' + (val / 10000000).toFixed(2) + ' Cr';
+      } else {
+        return '₹' + (val / 100000).toFixed(1) + ' Lakhs';
+      }
+    }
+
+    function calculateFinancials() {
+      const propertyValue = parseFloat(propRange.value);
+      const downPercent = parseFloat(downRange.value);
+      const tenureYears = parseFloat(tenureRange.value);
+      const interestAnnual = parseFloat(interestRange.value);
+
+      const downPaymentAmount = propertyValue * (downPercent / 100);
+      const loanAmount = propertyValue - downPaymentAmount;
+
+      propDisplay.textContent = formatINR(propertyValue);
+      downDisplay.textContent = `${formatINR(downPaymentAmount)} (${downPercent}%)`;
+      tenureDisplay.textContent = `${tenureYears} Years`;
+      interestDisplay.textContent = `${interestAnnual.toFixed(1)}% p.a.`;
+
+      // EMI calculation
+      const monthlyRate = (interestAnnual / 12) / 100;
+      const totalMonths = tenureYears * 12;
+      
+      const emi = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / 
+                  (Math.pow(1 + monthlyRate, totalMonths) - 1);
+      
+      emiDisplay.innerHTML = `₹${Math.round(emi).toLocaleString('en-IN')} <span class="text-sm font-normal text-secondary">/ mo</span>`;
+
+      // Yield calculation (simulated gross annual rental yield based on location parameters)
+      const estAnnualRental = propertyValue * 0.0685;
+      const estGrossYield = (estAnnualRental / propertyValue) * 100;
+      yieldDisplay.textContent = `${estGrossYield.toFixed(2)}% (${formatINR(estAnnualRental)}/yr)`;
+
+      // LTV display
+      const ltvPercent = 100 - downPercent;
+      ltvDisplay.textContent = `${ltvPercent}% (${formatINR(loanAmount)} Principal)`;
+    }
+
+    if (propRange && downRange && tenureRange && interestRange) {
+      [propRange, downRange, tenureRange, interestRange].forEach(input => {
+        input.addEventListener('input', calculateFinancials);
+      });
+      calculateFinancials();
+    }
+  </script>
+</body></html>

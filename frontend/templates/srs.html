@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Software Requirements Specification (SRS v1.0) | EstateMind AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#003527",
+            "primary-container": "#064E3B",
+            "surface-ground": "#FAF8FF"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans", "sans-serif"],
+            body: ["Inter", "sans-serif"],
+            mono: ["Fira Code", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #1E293B; }
+    h1, h2, h3, h4, .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white; color: black; }
+      .shadow-sm, .shadow-md, .shadow-xl { box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+
+  <!-- Floating Navigation Bar (No-Print) -->
+  <header class="no-print max-w-4xl mx-auto mb-8 flex justify-between items-center bg-white p-4 rounded-2xl border border-slate-200 shadow-sm sticky top-4 z-40 backdrop-blur-md bg-white/95">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+        <span class="material-symbols-outlined text-lg">arrow_back</span>
+        <span>Back to Application</span>
+      </a>
+      <span class="text-slate-300">|</span>
+      <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">SRS v1.0 Academic Document</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="window.print()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
+        <span class="material-symbols-outlined text-sm">print</span>
+        <span>Print / Save PDF</span>
+      </button>
+      <a href="/" class="px-4 py-2 bg-primary-container hover:bg-emerald-900 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors">
+        <span>Launch Advisor</span>
+        <span class="material-symbols-outlined text-sm">rocket_launch</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Document Container -->
+  <article class="max-w-4xl mx-auto bg-white rounded-2xl border border-slate-200 p-8 sm:p-14 shadow-sm space-y-12 leading-relaxed text-sm">
+
+    <!-- Document Header / Title Page Equivalent -->
+    <header class="text-center border-b border-slate-200 pb-12 space-y-4">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-bold uppercase tracking-wider">
+        <span class="material-symbols-outlined text-xs">verified</span> OFFICIAL SPECIFICATION
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-primary font-headline tracking-tight">
+        Software Requirements Specification (SRS)
+      </h1>
+      <p class="text-lg text-slate-700 font-medium">for</p>
+      <h2 class="text-2xl sm:text-3xl font-bold text-emerald-900 font-headline">
+        AI-Powered Real Estate Advisor & Property Matcher
+      </h2>
+      
+      <div class="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600 max-w-xl mx-auto border-t border-slate-100 mt-6">
+        <div>
+          <span class="block text-slate-400 font-semibold uppercase">Author</span>
+          <span class="text-slate-800 font-bold text-sm">Bhupeshwar Dayal</span>
+        </div>
+        <div>
+          <span class="block text-slate-400 font-semibold uppercase">Version / Date</span>
+          <span class="text-slate-800 font-bold text-sm">Version 1.0 &bull; Active Specification</span>
+        </div>
+        <div class="sm:col-span-2 bg-slate-50 p-3 rounded-xl border border-slate-100 text-left">
+          <span class="block text-slate-400 font-semibold uppercase mb-1">Target Architectural Stack</span>
+          <span class="text-emerald-900 font-mono font-medium text-xs">Python, LangChain RAG, FAISS Vector Index, PostgreSQL / SQLAlchemy, FastAPI</span>
+        </div>
+      </div>
+
+      <!-- Abstract -->
+      <div class="text-left bg-emerald-50/60 border border-emerald-200/70 p-6 rounded-2xl mt-8">
+        <h3 class="text-xs font-bold text-emerald-950 uppercase tracking-wider mb-2">Abstract</h3>
+        <p class="text-slate-800 text-xs sm:text-sm leading-relaxed">
+          This document defines the complete functional and non-functional requirements, architectural blueprints, data models, and verification protocols for the <em>AI-Powered Real Estate Advisor & Property Matcher</em>. The system leverages modern Retrieval-Augmented Generation (RAG) and dense vector search to replace traditional, rigid property filters with an intelligent conversational advisor capable of evaluating complex natural language constraints, calculating financial projections (e.g., loan amortization, EMI), and matching real estate assets with high precision and zero hallucinations.
+        </p>
+      </div>
+    </header>
+
+    <!-- Section 1: Introduction -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-bold text-primary font-headline border-b border-slate-100 pb-2">
+        1. Introduction
+      </h3>
+      
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800">1.1 Purpose</h4>
+        <p class="text-slate-600">
+          The purpose of this document is to specify the complete Software Requirements Specification (SRS) for the development of the <strong>AI-Powered Real Estate Advisor & Property Matcher</strong>. This document provides technical and functional blueprints for developers, testers, and stakeholders involved in designing, deploying, and evaluating this application.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800">1.2 Scope of the System</h4>
+        <p class="text-slate-600">
+          The <em>AI-Powered Real Estate Advisor & Property Matcher</em> is an intelligent, full-stack conversational application that bridges the gap between unstructured human intent and structured property inventory.
+        </p>
+        <ul class="list-disc list-inside space-y-1 text-slate-700 pl-2">
+          <li>Accepts conversational, multi-constraint inputs (e.g., budget, commute distance, locality, amenities, layout).</li>
+          <li>Converts property catalogs into semantic vector representations using dense embedding models.</li>
+          <li>Performs low-latency similarity retrieval using in-memory vector indexing (FAISS).</li>
+          <li>Employs Retrieval-Augmented Generation (RAG) to generate grounded recommendations with explicit reasoning.</li>
+          <li>Provides accurate financial calculations, including monthly loan EMIs, price-per-square-foot benchmarks, and projected rental yield.</li>
+        </ul>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-800">1.3 Definitions, Acronyms, and Abbreviations</h4>
+        <div class="overflow-x-auto border border-slate-200 rounded-xl">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 text-slate-700 border-b border-slate-200">
+              <tr>
+                <th class="p-3 font-bold w-1/4">Term</th>
+                <th class="p-3 font-bold">Definition</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">RAG</td>
+                <td class="p-3 text-slate-600">Retrieval-Augmented Generation: An architecture combining information retrieval with large language model generation to ground answers on verified external data.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">FAISS</td>
+                <td class="p-3 text-slate-600">Facebook AI Similarity Search: A library for efficient similarity search and clustering of dense vectors.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">LLM</td>
+                <td class="p-3 text-slate-600">Large Language Model: Neural network models trained on extensive text datasets to understand and generate human language.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">Embedding</td>
+                <td class="p-3 text-slate-600">A high-dimensional numerical vector representation of text capturing semantic relationships.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">EMI</td>
+                <td class="p-3 text-slate-600">Equated Monthly Installment: A fixed payment amount made by a borrower to a lender at a specified date each calendar month.</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-semibold text-emerald-900">Hallucination</td>
+                <td class="p-3 text-slate-600">A phenomenon where an LLM generates synthetically convincing yet factually incorrect or ungrounded claims.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Overall System Description -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-bold text-primary font-headline border-b border-slate-100 pb-2">
+        2. Overall System Description
+      </h3>
+
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800">2.1 Product Perspective</h4>
+        <p class="text-slate-600">
+          Traditional real estate portals (e.g., 99acres, MagicBricks, Zillow) rely heavily on rigid relational drop-downs (BHK count, exact city name, discrete budget brackets). These fail when a prospective buyer has subjective, multi-faceted requirements such as:
+        </p>
+        <blockquote class="p-3 bg-slate-50 border-l-4 border-emerald-700 italic text-slate-700 rounded-r-lg text-xs">
+          "Looking for a 2 or 3 BHK near an IT park in Pune under 85 Lakhs with good school connectivity and an estimated monthly loan EMI below 50,000 INR."
+        </blockquote>
+        <p class="text-slate-600">
+          This project sits on top of relational property data, augmenting it with an intelligent semantic index and conversational interface to address complex conversational queries.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800">2.2 System Architecture</h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <span class="text-xs font-bold text-emerald-800 block mb-1">Tier 1: Presentation</span>
+            <p class="text-xs text-slate-600">Interactive user interface featuring dynamic chat threads, property card displays, and live financial sliders.</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <span class="text-xs font-bold text-emerald-800 block mb-1">Tier 2: Application / RAG</span>
+            <p class="text-xs text-slate-600">Manages conversational state, input sanitization, vector query formulation, prompt assembly, and deterministic calculation hooks.</p>
+          </div>
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <span class="text-xs font-bold text-emerald-800 block mb-1">Tier 3: Data & Vector Store</span>
+            <p class="text-xs text-slate-600">FAISS handles dense vector similarity retrieval for text descriptions; PostgreSQL stores structured property records and logs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Functional Requirements -->
+    <section class="space-y-6">
+      <h3 class="text-xl font-bold text-primary font-headline border-b border-slate-100 pb-2">
+        3. Specific Functional Requirements
+      </h3>
+
+      <!-- Module 1 -->
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+          Module 1: Data Ingestion & Vector Indexing
+        </h4>
+        <ul class="space-y-1.5 text-xs text-slate-700 pl-4 list-disc">
+          <li><strong>FR-1.1 Data Normalization:</strong> The system shall ingest raw property tabular data, clean missing values, and construct unified contextual text blobs containing titles, locations, descriptions, amenities, and floor plans.</li>
+          <li><strong>FR-1.2 Vector Embeddings Generation:</strong> The system shall compute vector embeddings for all property records using dense text embedding models.</li>
+          <li><strong>FR-1.3 Index Persistence:</strong> The generated vector representations shall be stored in an indexed vector space (FAISS <code>IndexFlatL2</code> or <code>IndexFlatIP</code>) for sub-second retrieval.</li>
+        </ul>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+          Module 2: Natural Language Query Processing
+        </h4>
+        <ul class="space-y-1.5 text-xs text-slate-700 pl-4 list-disc">
+          <li><strong>FR-2.1 Intent Extraction:</strong> The system shall identify core hard filters (maximum budget, minimum bedrooms, target locality) and soft semantic preferences (ambiance, lifestyle, commute) from raw user queries.</li>
+          <li><strong>FR-2.2 Conversational Memory:</strong> The system shall maintain multi-turn dialogue context, allowing users to issue follow-up questions such as <em>"Show me only the ones with covered parking from the above list."</em></li>
+        </ul>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+          Module 3: Retrieval & Hallucination-Free Generation
+        </h4>
+        <ul class="space-y-1.5 text-xs text-slate-700 pl-4 list-disc">
+          <li><strong>FR-3.1 Semantic Search Retrieval:</strong> Top-K relevant property candidates (default K=4) shall be fetched via cosine / Euclidean vector similarity search.</li>
+          <li><strong>FR-3.2 Grounded Prompt Injection:</strong> Retrieved property records shall be injected into a system prompt enforcing a strict negative constraint: <em>"Answer solely based on the provided retrieved context. Do not invent properties, prices, or configurations."</em></li>
+          <li><strong>FR-3.3 Fallback Handling:</strong> If no catalog item matches the criteria, the system shall cleanly inform the user and suggest relaxing constraints.</li>
+        </ul>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="space-y-3">
+        <h4 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+          Module 4: Financial Estimation Engine
+        </h4>
+        <div class="space-y-2 text-xs text-slate-700 pl-4">
+          <p><strong>FR-4.1 EMI Calculation:</strong> The system shall deterministically compute monthly EMI using the standard mathematical formula:</p>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-center text-xs">
+            E = P &times; r &times; [ (1 + r)^n / ( (1 + r)^n - 1 ) ]
+          </div>
+          <p class="text-[11px] text-slate-500">where P is principal loan amount, r is monthly interest rate, and n is total loan months.</p>
+          
+          <p class="pt-2"><strong>FR-4.2 Rental Yield Analysis:</strong> Calculate gross rental yield percentage based on median locality rental metrics:</p>
+          <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-center text-xs">
+            Gross Yield (%) = ( Annual Expected Rent / Total Property Purchase Price ) &times; 100
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Data Models & Schema -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-bold text-primary font-headline border-b border-slate-100 pb-2">
+        4. Data Models & Database Schema
+      </h3>
+      
+      <div class="space-y-2">
+        <h4 class="text-sm font-bold text-slate-800">4.1 Relational Entity Schema (PostgreSQL DDL)</h4>
+        <pre class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs overflow-x-auto">
+CREATE TABLE properties (
+    property_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    locality VARCHAR(150) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    price_inr NUMERIC(12, 2) NOT NULL,
+    bhk_count INT NOT NULL,
+    carpet_area_sqft INT NOT NULL,
+    amenities TEXT[],
+    possession_status VARCHAR(50), -- 'Ready to Move', 'Under Construction'
+    latitude DECIMAL(9, 6),
+    longitude DECIMAL(9, 6),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_conversations (
+    session_id UUID PRIMARY KEY,
+    user_query TEXT NOT NULL,
+    retrieved_property_ids INT[],
+    ai_response TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <h4 class="text-sm font-bold text-slate-800">4.2 Vector Store Representation</h4>
+        <p class="text-xs text-slate-600">Each vector node in FAISS corresponds to an individual property_id and contains embedded contextual representations:</p>
+        <pre class="bg-slate-50 p-3 rounded-lg border border-slate-200 font-mono text-xs text-slate-800">
+Context Chunk = "Property: {title} | Location: {locality}, {city} | 
+                Price: INR {price_inr} | Specs: {bhk_count} BHK, 
+                {carpet_area_sqft} sqft | Amenities: {amenities} | 
+                Description: {description}"</pre>
+      </div>
+    </section>
+
+    <!-- Section 5: Non-Functional Requirements -->
+    <section class="space-y-4">
+      <h3 class="text-xl font-bold text-primary font-headline border-b border-slate-100 pb-2">
+        5. Non-Functional Requirements
+      </h3>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+          <span class="font-bold text-emerald-900">5.1 Performance & Latency</span>
+          <p class="text-slate-600">Vector similarity search across catalog executes in &le; 50ms. End-to-end response latency &le; 2.5s.</p>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+          <span class="font-bold text-emerald-900">5.2 Reliability & Accuracy</span>
+          <p class="text-slate-600">Financial formulas utilize precise decimal libraries with zero rounding drift. 0% hallucination rate on property pricing.</p>
+        </div>
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+          <span class="font-bold text-emerald-900">5.3 Usability & Interface</span>
+          <p class="text-slate-600">Mobile-first responsive web design with bright architectural luxury theme, interactive cards, and live calculation sliders.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6 & 7: Roadmap & Conclusion -->
+    <section class="space-y-4 border-t border-slate-200 pt-8">
+      <div class="flex justify-between items-center">
+        <h3 class="text-xl font-bold text-primary font-headline">
+          6. Implementation & Verification Status
+        </h3>
+        <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold">100% COMPLETE & VERIFIED</span>
+      </div>
+      <p class="text-xs text-slate-600">
+        All phases (Data Ingestion, FAISS Vector Indexing, LangChain RAG pipeline, and Web Presentation Tier) have been implemented and validated with automated test suites running in sub-second execution times.
+      </p>
+    </section>
+
+    <!-- Footer of SRS Document -->
+    <footer class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 gap-4">
+      <span>Software Requirements Specification (SRS v1.0)</span>
+      <div class="flex items-center gap-3">
+        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="hover:text-primary transition-colors">Back to top</button>
+        <span>&bull;</span>
+        <a href="/" class="hover:text-primary transition-colors">Return to App</a>
+      </div>
+    </footer>
+
+  </article>
+
+</body>
+</html>
+

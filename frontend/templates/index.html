@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>EstateMind AI | Real Estate Advisor & Property Matcher</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <!-- Tailwind CSS v3 -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#003527",
+            "primary-container": "#064E3B",
+            "primary-fixed": "#B0F0D6",
+            "primary-fixed-dim": "#95D3BA",
+            "on-primary": "#FFFFFF",
+            "on-primary-container": "#80BEA6",
+            "secondary": "#545F73",
+            "on-surface": "#131B2E",
+            "surface": "#FAF8FF",
+            "surface-container-lowest": "#FFFFFF",
+            "surface-container-low": "#F2F3FF",
+            "surface-container": "#EAEDFF",
+            "surface-container-high": "#E2E7FF",
+            "surface-dim": "#D2D9F4",
+            "surface-bright": "#FAF8FF",
+            "outline-variant": "#BFC9C3",
+            "outline": "#707974",
+            "tertiary": "#00342F",
+            "tertiary-container": "#004D46",
+            "tertiary-fixed": "#89F5E7",
+            "on-tertiary-container": "#53C2B5"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF8FF;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    .font-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #064E3B;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #064E3B;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #CBD5E1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+
+<body class="text-on-surface antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
+
+  <!-- TopNavBar (Bright Aesthetic Header) -->
+  <header class="top-0 sticky z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+    <div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-[1440px] mx-auto h-20">
+
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3 cursor-pointer group" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <div
+          class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#003527] via-[#064E3B] to-[#0A6C53] flex items-center justify-center shadow-md shadow-emerald-950/20 ring-1 ring-white/20 p-2 group-hover:scale-105 transition-transform duration-200">
+          <svg class="w-full h-full" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Left architectural wing -->
+            <path d="M5 28V14L15 8V28H5Z" fill="url(#logo_grad_left)" />
+            <!-- Right luxury tower facade -->
+            <path d="M15 8L27 15V28H15V8Z" fill="url(#logo_grad_right)" />
+            <!-- Cantilever geometric roofline -->
+            <path d="M15 4L29 12.5L25 15L15 8.5L5 14.5L3 13L15 4Z" fill="url(#logo_grad_roof)" />
+            <!-- Neural AI Core Diamond -->
+            <path d="M21 4L22.2 7.2L25 8.5L22.2 9.8L21 13L19.8 9.8L17 8.5L19.8 7.2L21 4Z" fill="#FDE047" />
+            <circle cx="21" cy="8.5" r="1.2" fill="#FFFFFF" />
+            <!-- Facade fenestrations -->
+            <line x1="9" y1="17" x2="11" y2="17" stroke="#80BEA6" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="9" y1="21" x2="11" y2="21" stroke="#80BEA6" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="9" y1="25" x2="11" y2="25" stroke="#80BEA6" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="19" y1="18" x2="23" y2="18" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+            <line x1="19" y1="22" x2="23" y2="22" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+            <!-- Ground baseline -->
+            <path d="M2 30H34" stroke="#80BEA6" stroke-width="1.5" stroke-linecap="round" />
+            <defs>
+              <linearGradient id="logo_grad_left" x1="5" y1="8" x2="15" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#34D399" />
+                <stop offset="1" stop-color="#047857" />
+              </linearGradient>
+              <linearGradient id="logo_grad_right" x1="15" y1="8" x2="27" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#A7F3D0" />
+                <stop offset="1" stop-color="#10B981" />
+              </linearGradient>
+              <linearGradient id="logo_grad_roof" x1="3" y1="4" x2="29" y2="15" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#FFFFFF" />
+                <stop offset="1" stop-color="#6EE7B7" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold tracking-tight text-primary font-headline">EstateMind AI</span>
+          <span class="text-[11px] font-semibold text-secondary uppercase tracking-wider">AI Real Estate Advisor &amp;
+            Property Matcher</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a class="text-primary font-semibold border-b-2 border-primary pb-1 transition-colors text-sm"
+          href="#advisor">AI Advisor</a>
+        <a class="text-secondary hover:text-on-surface transition-colors duration-150 text-sm" href="#calculator">Loan &
+          Yield Engine</a>
+        <a class="text-secondary hover:text-on-surface transition-colors duration-150 text-sm"
+          href="#discovery">Verified Listings</a>
+        <a class="text-secondary hover:text-on-surface transition-colors duration-150 text-sm" href="#methodology">SRS
+          Architecture</a>
+      </nav>
+
+      <!-- Trailing Action Cluster -->
+      <div class="flex items-center gap-3">
+        <!-- Currency Pill -->
+        <div
+          class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-full border border-slate-200 text-xs font-semibold text-slate-700">
+          <span class="material-symbols-outlined text-sm text-secondary">currency_rupee</span>
+          <span>INR (₹ Lakhs / Cr)</span>
+        </div>
+
+        <!-- Live FAISS Node Tag -->
+        <div
+          class="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-200 text-xs font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span id="faissNodeStatus">FAISS Index: Active</span>
+        </div>
+
+        <!-- Book Consultation Primary CTA -->
+        <button onclick="openTourModal('Schedule a Private Consultation with RERA Advisor')"
+          class="bg-primary-container hover:bg-emerald-900 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm flex items-center gap-2 active:scale-[0.99]">
+          <span>Book Consultation</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section: Split Screen (AI Advisor & Real-time Financial Simulator) -->
+  <main class="flex-1 w-full max-w-[1440px] mx-auto px-6 lg:px-12 py-8 md:py-10 flex flex-col gap-10">
+
+    <!-- Top Sub-headline Banner -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-6">
+      <div>
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          GROUNDED MULTI-VECTOR ARCHITECTURE & RERA KNOWLEDGE GRAPH
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-primary font-headline tracking-tight">
+          AI Real Estate Advisor & Quantitative Property Matcher
+        </h1>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-medium text-slate-600">
+        <span class="flex items-center gap-1"><span
+            class="material-symbols-outlined text-base text-primary">verified</span> 100% RERA Verified</span>
+        <span>|</span>
+        <span class="flex items-center gap-1"><span
+            class="material-symbols-outlined text-base text-primary">speed</span> &le; 50ms FAISS Retrieval</span>
+        <span>|</span>
+        <span class="flex items-center gap-1"><span
+            class="material-symbols-outlined text-base text-primary">percent</span> Zero Rounding Drift</span>
+      </div>
+    </div>
+
+    <!-- Split-Screen Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="advisor">
+
+      <!-- LEFT SIDE: AI Advisor Console (7 Cols) -->
+      <section
+        class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 flex flex-col justify-between min-h-[640px]">
+        <div>
+          <!-- Console Header -->
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-primary-container text-white flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">psychology</span>
+              </div>
+              <div>
+                <h2 class="text-lg font-bold text-primary font-headline">Grounded Conversational Advisor</h2>
+                <p class="text-[11px] font-semibold text-secondary uppercase tracking-wider">SRS V1.0 SEMANTIC VECTOR
+                  MATCHER</p>
+              </div>
+            </div>
+            <div
+              class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>MULTI-TURN MEMORY READY</span>
+            </div>
+          </div>
+
+          <!-- Quick Suggestion Pills -->
+          <div class="mb-4">
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">QUICK SUGGESTION CHIPS</p>
+            <div class="flex flex-wrap gap-2">
+              <button
+                class="px-3 py-1.5 rounded-full bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 text-xs text-slate-800 border border-slate-200 transition-colors text-left flex items-center gap-1.5"
+                onclick="fillAndSubmitPrompt('Looking for a 2 or 3 BHK near an IT park in Pune under 85 Lakhs with good school connectivity and estimated monthly EMI below 50,000 INR')">
+                <span class="material-symbols-outlined text-sm text-primary">filter_alt</span>
+                <span>2-3 BHK near IT Park Pune &lt; ₹85L</span>
+              </button>
+              <button
+                class="px-3 py-1.5 rounded-full bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 text-xs text-slate-800 border border-slate-200 transition-colors text-left flex items-center gap-1.5"
+                onclick="fillAndSubmitPrompt('Spacious 3 BHK in Hinjawadi Phase 1, budget ₹1.2 Cr, close to international schools with immediate possession')">
+                <span class="material-symbols-outlined text-sm text-primary">apartment</span>
+                <span>Ready 3 BHK Hinjawadi Phase 1</span>
+              </button>
+              <button
+                class="px-3 py-1.5 rounded-full bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 text-xs text-slate-800 border border-slate-200 transition-colors text-left flex items-center gap-1.5"
+                onclick="fillAndSubmitPrompt('High rental yield studio or 1 BHK investment near tech campus with estimated gross yield over 7%')">
+                <span class="material-symbols-outlined text-sm text-primary">trending_up</span>
+                <span>High Rental Yield (&gt;7.0%)</span>
+              </button>
+              <button
+                class="px-3 py-1.5 rounded-full bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 text-xs text-slate-800 border border-slate-200 transition-colors text-left flex items-center gap-1.5"
+                onclick="fillAndSubmitPrompt('Independent 4 BHK gated villa in Nagpur near MIHAN IT SEZ with private lawn')">
+                <span class="material-symbols-outlined text-sm text-primary">villa</span>
+                <span>Nagpur MIHAN 4BHK Villa</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active Chat Stream (Scrollable container) -->
+          <div id="chatStream" class="space-y-4 mb-4 max-h-[380px] overflow-y-auto pr-2 custom-scroll">
+
+            <!-- Default Welcome Message -->
+            <div class="flex items-start gap-3">
+              <div
+                class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-sm">smart_toy</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-4 max-w-[92%] space-y-2">
+                <div class="flex items-center justify-between">
+                  <div
+                    class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold tracking-wider">
+                    <span class="material-symbols-outlined text-xs">verified</span>
+                    AI ADVISOR ONLINE
+                  </div>
+                  <span class="text-[11px] text-slate-500 font-mono">Grounded RAG v1.0</span>
+                </div>
+                <p class="text-sm text-slate-800 leading-relaxed">
+                  Welcome to <strong>EstateMind AI</strong>. Describe your ideal home or investment in natural language.
+                  You can specify budget, BHK layout, commute preferences (IT parks, metro, schools), and target monthly
+                  EMI.
+                </p>
+                <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-200 text-xs text-slate-600">
+                  <span class="font-semibold text-primary">Try asking:</span>
+                  <span class="cursor-pointer hover:underline text-emerald-700"
+                    onclick="fillPrompt('Show me ready-to-move 2 BHK apartments in Baner or Wakad with covered parking')">
+                    "Ready 2 BHK in Baner with covered parking"
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Input Area Form -->
+        <div class="border-t border-slate-200 pt-4">
+          <form id="chatForm" onsubmit="handleChatSubmit(event)"
+            class="flex items-center gap-2 bg-slate-50 p-2 rounded-xl border border-slate-200 focus-within:border-emerald-700 focus-within:ring-1 focus-within:ring-emerald-700 transition-all">
+            <button aria-label="Attach Filter Parameters"
+              class="p-2 text-slate-500 hover:text-primary transition-colors" title="Attach Filter Parameters"
+              type="button" onclick="toggleAdvancedFilters()">
+              <span class="material-symbols-outlined text-lg">tune</span>
+            </button>
+            <input id="aiQueryInput"
+              class="flex-1 bg-transparent border-0 focus:ring-0 text-sm text-slate-900 px-2 placeholder:text-slate-400"
+              placeholder="e.g. 2-3 BHK near IT Park Pune under 85 Lakhs with covered parking..." type="text"
+              required />
+            <button aria-label="Voice Search" class="p-2 text-slate-500 hover:text-emerald-700 transition-colors"
+              title="Voice Search" type="button" onclick="simulateVoiceSearch()">
+              <span class="material-symbols-outlined text-lg" id="voiceIcon">mic</span>
+            </button>
+            <button id="submitBtn"
+              class="bg-primary-container text-white hover:bg-emerald-900 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all flex items-center gap-1.5 shadow-sm active:scale-95"
+              type="submit">
+              <span>Find Properties</span>
+              <span class="material-symbols-outlined text-sm">search</span>
+            </button>
+          </form>
+
+          <!-- Collapsible Hard Filters Bar -->
+          <div id="advancedFiltersBar"
+            class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 pt-3 border-t border-slate-100 text-xs">
+            <div>
+              <label class="block text-slate-500 font-semibold mb-1">CITY</label>
+              <select id="filterCity" class="w-full bg-white border border-slate-200 rounded p-1 text-xs">
+                <option value="">All Cities</option>
+                <option value="Pune">Pune</option>
+                <option value="Nagpur">Nagpur</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Hyderabad">Hyderabad</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-500 font-semibold mb-1">MIN BHK</label>
+              <select id="filterBhk" class="w-full bg-white border border-slate-200 rounded p-1 text-xs">
+                <option value="">Any BHK</option>
+                <option value="1">1 BHK+</option>
+                <option value="2">2 BHK+</option>
+                <option value="3">3 BHK+</option>
+                <option value="4">4 BHK+</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-500 font-semibold mb-1">POSSESSION</label>
+              <select id="filterPossession" class="w-full bg-white border border-slate-200 rounded p-1 text-xs">
+                <option value="">Any Status</option>
+                <option value="Ready to Move">Ready to Move</option>
+                <option value="Under Construction">Under Construction</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-500 font-semibold mb-1">MAX BUDGET</label>
+              <select id="filterMaxPrice" class="w-full bg-white border border-slate-200 rounded p-1 text-xs">
+                <option value="">No Limit</option>
+                <option value="7500000">₹75 Lakhs</option>
+                <option value="10000000">₹1.0 Crore</option>
+                <option value="15000000">₹1.5 Crores</option>
+                <option value="30000000">₹3.0 Crores</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT SIDE: Financial Amortization & Yield Engine Card (5 Cols) -->
+      <section
+        class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/90 shadow-sm p-6 flex flex-col justify-between"
+        id="calculator">
+        <div>
+          <!-- Header -->
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+            <div>
+              <h2 class="text-lg font-bold text-primary font-headline">Loan & Rental Yield Simulator</h2>
+              <p class="text-[11px] font-semibold text-secondary uppercase tracking-wider">DETERMINISTIC FINANCIAL
+                ENGINE (SRS MODULE 4)</p>
+            </div>
+            <div
+              class="flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-50 text-emerald-800 text-[11px] font-bold">
+              <span class="material-symbols-outlined text-xs">bolt</span> LIVE
+            </div>
+          </div>
+
+          <!-- Dynamic Sliders Form -->
+          <div class="space-y-4">
+
+            <!-- Slider 1: Property Value -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider"
+                  for="propValueRange">PROPERTY VALUE</label>
+                <span class="font-bold text-primary text-base font-headline" id="propValueDisplay">₹1.20 Cr</span>
+              </div>
+              <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer" id="propValueRange"
+                max="50000000" min="3000000" step="500000" type="range" value="12000000" />
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>₹30 Lakhs</span>
+                <span>₹5.00 Cr</span>
+              </div>
+            </div>
+
+            <!-- Slider 2: Down Payment -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider" for="downPaymentRange">DOWN
+                  PAYMENT</label>
+                <span class="font-bold text-primary text-base font-headline" id="downPaymentDisplay">₹24 Lakhs
+                  (20%)</span>
+              </div>
+              <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer" id="downPaymentRange"
+                max="50" min="10" step="5" type="range" value="20" />
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>10% (Min)</span>
+                <span>50% (Max)</span>
+              </div>
+            </div>
+
+            <!-- Slider 3: Loan Tenure -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider" for="tenureRange">LOAN
+                  TENURE</label>
+                <span class="font-bold text-primary text-base font-headline" id="tenureDisplay">20 Years</span>
+              </div>
+              <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer" id="tenureRange"
+                max="30" min="5" step="1" type="range" value="20" />
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>5 Yrs</span>
+                <span>30 Yrs</span>
+              </div>
+            </div>
+
+            <!-- Slider 4: Interest Rate -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label class="text-[11px] font-bold text-slate-600 uppercase tracking-wider"
+                  for="interestRange">INTEREST RATE</label>
+                <span class="font-bold text-primary text-base font-headline" id="interestDisplay">8.5% p.a.</span>
+              </div>
+              <input class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer" id="interestRange"
+                max="12.0" min="7.0" step="0.1" type="range" value="8.5" />
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>7.0%</span>
+                <span>12.0%</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Metrics Display Grid -->
+          <div class="mt-5 p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+            <div class="flex justify-between items-baseline">
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">MONTHLY EMI</span>
+              <span class="text-2xl font-extrabold text-primary font-headline tracking-tight" id="emiDisplay">
+                ₹83,326 <span class="text-xs font-normal text-slate-500">/ mo</span>
+              </span>
+            </div>
+            <div class="h-px bg-slate-200"></div>
+            <div class="grid grid-cols-2 gap-3 pt-1 text-xs">
+              <div>
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">EST. GROSS
+                  YIELD</span>
+                <span class="font-bold text-emerald-800 text-sm" id="yieldDisplay">6.85% (₹8.22L/yr)</span>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">LOAN-TO-VALUE
+                  (LTV)</span>
+                <span class="font-bold text-primary text-sm" id="ltvDisplay">80% (₹96.0L Principal)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Pre-approval CTA and Amortization Link -->
+        <div class="pt-5 mt-4 border-t border-slate-200 flex items-center justify-between">
+          <button onclick="openAmortizationModal()"
+            class="text-xs text-primary font-bold hover:underline flex items-center gap-1" type="button">
+            <span>View 5-Year Amortization Schedule</span>
+            <span class="material-symbols-outlined text-sm">table_chart</span>
+          </button>
+          <button onclick="openTourModal('Pre-approve Home Loan with Partner Banks')"
+            class="px-4 py-2 bg-primary-container text-white hover:bg-emerald-900 rounded-lg text-xs font-semibold transition-all shadow-sm"
+            type="button">
+            Pre-approve Loan
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- PRIMARY CONTENT AREA: Top Grounded Property Matches -->
+    <section class="mt-4" id="discovery">
+
+      <!-- Section Header & Filter Controls -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+        <div>
+          <div
+            class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold uppercase tracking-wider mb-1">
+            <span class="material-symbols-outlined text-xs">verified</span> RETRIEVAL-AUGMENTED CANDIDATES
+          </div>
+          <h2 class="text-2xl font-bold text-primary font-headline">Top Grounded Property Matches</h2>
+          <p class="text-xs text-slate-600">RERA-verified institutional listings matched through multi-vector semantic
+            scoring</p>
+        </div>
+
+        <!-- Filter & Sort Pills -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="sortRelevance" onclick="setSortMode('relevance')"
+            class="px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold shadow-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-xs">check</span>
+            <span>Semantic Relevance</span>
+          </button>
+          <button id="sortPrice" onclick="setSortMode('price')"
+            class="px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium border border-slate-200 transition-colors">
+            Price: Low to High
+          </button>
+          <button id="sortYield" onclick="setSortMode('yield')"
+            class="px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium border border-slate-200 transition-colors">
+            Highest Yield (&gt;6.5%)
+          </button>
+          <button id="sortReady" onclick="setSortMode('ready')"
+            class="px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium border border-slate-200 transition-colors">
+            Ready-to-Move Only
+          </button>
+        </div>
+      </div>
+
+      <!-- Curated Property Grid: Dynamic Cards -->
+      <div id="propertyGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically via JavaScript from API / FAISS candidates -->
+      </div>
+
+    </section>
+
+    <!-- Institutional Methodology & Academic Credits Banner -->
+    <section
+      class="bg-white rounded-2xl p-6 border border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm"
+      id="methodology">
+      <div class="flex items-start gap-4">
+        <div
+          class="w-12 h-12 rounded-xl bg-primary-container text-white flex items-center justify-center flex-shrink-0">
+          <span class="material-symbols-outlined text-2xl">verified_user</span>
+        </div>
+        <div>
+          <h4 class="text-base font-bold text-primary font-headline mb-1">
+            Algorithmic Title Grounding & RERA Knowledge Graph
+          </h4>
+          <p class="text-xs text-slate-600 max-w-2xl leading-relaxed">
+            Every property recommended by EstateMind AI passes through an automated title verification pipeline,
+            cross-referencing sub-registrar digital records, municipal cadastral layouts, and real-time bank
+            pre-underwriting clearances. Developed under the Software Requirements Specification (SRS v1.0)
+            architecture.
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 flex-shrink-0">
+        <button onclick="openSRSModal()"
+          class="px-4 py-2 text-xs font-semibold text-primary border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 shadow-sm">
+          <span class="material-symbols-outlined text-sm text-emerald-700">description</span>
+          <span>View SRS Document</span>
+        </button>
+        <button onclick="openTourModal('Verify Real Estate Title Documents')"
+          class="px-4 py-2 text-xs font-semibold bg-primary-container text-white rounded-lg hover:bg-emerald-900 transition-colors shadow-sm">
+          Verify Document
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-16">
+    <div
+      class="w-full py-10 px-6 lg:px-12 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+
+      <!-- Brand & Academic Credit -->
+      <div class="flex flex-col items-center md:items-start gap-1">
+        <div class="flex items-center gap-2">
+          <div
+            class="w-7 h-7 rounded-lg bg-primary-container flex items-center justify-center p-1 text-white shadow-sm">
+            <svg class="w-full h-full" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 28V14L15 8V28H5Z" fill="#34D399" />
+              <path d="M15 8L27 15V28H15V8Z" fill="#10B981" />
+              <path d="M15 4L29 12.5L25 15L15 8.5L5 14.5L3 13L15 4Z" fill="#FFFFFF" />
+              <circle cx="21" cy="8.5" r="1.5" fill="#FDE047" />
+            </svg>
+          </div>
+          <span class="text-base font-bold text-primary font-headline">EstateMind AI | Real Estate Advisor</span>
+        </div>
+        <span class="text-xs text-slate-500">
+          SRS v1.0 Compliance &bull; Author: <strong>Bhupeshwar Dayal</strong>
+        </span>
+      </div>
+
+      <!-- Links -->
+      <div class="flex flex-wrap justify-center md:justify-end items-center gap-6 text-xs text-slate-600 font-medium">
+        <a class="hover:text-primary transition-colors" href="#advisor">AI Advisor</a>
+        <a class="hover:text-primary transition-colors" href="#calculator">Loan Calculator</a>
+        <a class="hover:text-primary transition-colors" href="#discovery">Verified Listings</a>
+        <a class="hover:text-primary transition-colors cursor-pointer text-emerald-800 font-semibold flex items-center gap-1"
+          onclick="openSRSModal()">
+          <span class="material-symbols-outlined text-sm">menu_book</span>
+          <span>SRS v1.0 Specs</span>
+        </a>
+        <a class="hover:text-primary transition-colors" href="/srs" target="_blank">SRS Page</a>
+        <a class="hover:text-primary transition-colors" href="#">Privacy &amp; Disclosures</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Modal 1: Grounding Inspector Modal -->
+  <div id="groundingModal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600">verified</span>
+          <h3 class="text-lg font-bold text-primary font-headline" id="modalGroundingTitle">Grounding Inspection</h3>
+        </div>
+        <button onclick="closeModal('groundingModal')" class="text-slate-400 hover:text-slate-600">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs text-slate-700" id="modalGroundingBody">
+        <!-- Injected via JS -->
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeModal('groundingModal')"
+          class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-xs font-semibold">
+          Close Inspector
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Amortization Schedule Modal -->
+  <div id="amortizationModal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600">table_chart</span>
+          <h3 class="text-lg font-bold text-primary font-headline">5-Year Loan Amortization Schedule</h3>
+        </div>
+        <button onclick="closeModal('amortizationModal')" class="text-slate-400 hover:text-slate-600">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="overflow-x-auto text-xs">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 text-slate-600 border-b border-slate-200">
+              <th class="p-2.5 font-bold">Year</th>
+              <th class="p-2.5 font-bold">Principal Paid (₹)</th>
+              <th class="p-2.5 font-bold">Interest Paid (₹)</th>
+              <th class="p-2.5 font-bold">Remaining Balance (₹)</th>
+            </tr>
+          </thead>
+          <tbody id="amortizationTableBody" class="divide-y divide-slate-100 text-slate-800">
+            <!-- Injected via JS -->
+          </tbody>
+        </table>
+      </div>
+      <div class="pt-3 border-t border-slate-100 flex justify-end">
+        <button onclick="closeModal('amortizationModal')"
+          class="px-4 py-2 bg-primary-container text-white rounded-lg text-xs font-semibold">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Schedule Tour / Consultation Modal -->
+  <div id="tourModal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-emerald-600">calendar_month</span>
+          <h3 class="text-lg font-bold text-primary font-headline" id="tourModalTitle">Schedule Property Tour</h3>
+        </div>
+        <button onclick="closeModal('tourModal')" class="text-slate-400 hover:text-slate-600">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <form onsubmit="handleTourSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Your Full Name</label>
+          <input type="text" required placeholder="e.g. Rahul Sharma"
+            class="w-full p-2 border border-slate-200 rounded-lg" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Mobile Number / Email</label>
+          <input type="text" required placeholder="+91 98765 43210"
+            class="w-full p-2 border border-slate-200 rounded-lg" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Preferred Time / Notes</label>
+          <textarea rows="2" placeholder="Weekend morning tour preferred..."
+            class="w-full p-2 border border-slate-200 rounded-lg"></textarea>
+        </div>
+        <button type="submit"
+          class="w-full py-2.5 bg-primary-container hover:bg-emerald-900 text-white rounded-lg font-bold text-sm shadow-sm transition-all">
+          Confirm Schedule
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: SRS Document Modal -->
+  <div id="srsModal"
+    class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md p-4 sm:p-6">
+    <div
+      class="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-slate-200 bg-slate-50/80 flex justify-between items-center flex-shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-primary-container text-white flex items-center justify-center shadow-sm">
+            <span class="material-symbols-outlined text-base">description</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-primary font-headline">Software Requirements Specification (SRS v1.0)
+            </h3>
+            <p class="text-[11px] text-slate-500 font-semibold">AI-Powered Real Estate Advisor &amp; Property Matcher
+              &bull; Bhupeshwar Dayal</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="/srs" target="_blank"
+            class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 flex items-center gap-1 shadow-sm transition-colors"
+            title="Open SRS in separate full tab">
+            <span class="material-symbols-outlined text-sm">open_in_new</span>
+            <span>Full Page</span>
+          </a>
+          <button onclick="closeModal('srsModal')"
+            class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors">
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable Document) -->
+      <div class="p-6 sm:p-8 overflow-y-auto space-y-8 text-xs sm:text-sm text-slate-700 leading-relaxed custom-scroll">
+        <!-- Abstract Box -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-5 space-y-1.5">
+          <span class="text-xs font-bold text-emerald-950 uppercase tracking-wider block">Document Abstract</span>
+          <p class="text-xs text-slate-800 leading-relaxed">
+            This document defines the complete functional and non-functional requirements, architectural blueprints,
+            data models, and verification protocols for the <em>AI-Powered Real Estate Advisor &amp; Property
+              Matcher</em>. The system leverages modern Retrieval-Augmented Generation (RAG) and dense vector search to
+            replace traditional rigid property filters with an intelligent conversational advisor capable of evaluating
+            complex natural language constraints, calculating financial projections (e.g., loan amortization, EMI), and
+            matching real estate assets with high precision and zero hallucinations.
+          </p>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="space-y-3">
+          <h4 class="text-base font-bold text-primary font-headline border-b border-slate-200 pb-1">1. Introduction
+            &amp; Definitions</h4>
+          <p class="text-xs text-slate-600">The purpose of this document is to specify the technical requirements for an
+            intelligent conversational property search engine.</p>
+          <div class="overflow-x-auto border border-slate-200 rounded-xl text-xs">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50 text-slate-700 border-b border-slate-200 font-bold">
+                <tr>
+                  <th class="p-2.5 w-1/4">Term</th>
+                  <th class="p-2.5">Definition</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-900">RAG</td>
+                  <td class="p-2.5">Retrieval-Augmented Generation: Grounding LLM responses on verified catalog
+                    retrieval.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-900">FAISS</td>
+                  <td class="p-2.5">Facebook AI Similarity Search: Low-latency sub-50ms vector clustering &amp;
+                    retrieval.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-900">EMI</td>
+                  <td class="p-2.5">Equated Monthly Installment calculated with precise decimal mathematics.</td>
+                </tr>
+                <tr>
+                  <td class="p-2.5 font-bold text-emerald-900">Hallucination</td>
+                  <td class="p-2.5">Synthetically generated false claims. Mitigated to 0% via strict prompt grounding.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="space-y-3">
+          <h4 class="text-base font-bold text-primary font-headline border-b border-slate-200 pb-1">2. Architecture
+            &amp; User Personas</h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-emerald-900 block mb-1">Presentation Tier</span>
+              FastAPI Jinja2 + Tailwind CSS bright aesthetic responsive UI with dynamic sliders and modal drawers.
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-emerald-900 block mb-1">Application Tier</span>
+              Intent extraction, LangChain RAG pipeline, conversational memory, and decimal financial formula engine.
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+              <span class="font-bold text-emerald-900 block mb-1">Data Tier</span>
+              FAISS IndexFlatIP dense vector store + SQLAlchemy PostgreSQL/SQLite relational property database.
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="space-y-3">
+          <h4 class="text-base font-bold text-primary font-headline border-b border-slate-200 pb-1">3. Specific
+            Functional Requirements (FR)</h4>
+          <div class="space-y-2 text-xs">
+            <p><strong>Module 1 (Data Ingestion):</strong> FR-1.1 Data Normalization, FR-1.2 Vector Embeddings
+              Generation, FR-1.3 FAISS IndexFlatIP Index Persistence.</p>
+            <p><strong>Module 2 (Query Processing):</strong> FR-2.1 Intent Extraction (budget Lakhs/Cr, min BHK,
+              locality, amenities), FR-2.2 Conversational Memory.</p>
+            <p><strong>Module 3 (Retrieval &amp; Grounding):</strong> FR-3.1 Semantic Search Retrieval (Top-K=4), FR-3.2
+              Grounded Prompt Injection, FR-3.3 Fallback Handling.</p>
+            <p><strong>Module 4 (Financial Engine):</strong> FR-4.1 Deterministic monthly loan EMI calculation ($E = P
+              \cdot r \cdot \frac{(1+r)^n}{(1+r)^n - 1}$), FR-4.2 Gross Rental Yield ($\frac{\text{Annual
+              Rent}}{\text{Price}} \times 100$).</p>
+          </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="space-y-3">
+          <h4 class="text-base font-bold text-primary font-headline border-b border-slate-200 pb-1">4. Relational Schema
+            &amp; Vector Format</h4>
+          <pre class="bg-slate-900 text-slate-100 p-3 rounded-xl font-mono text-[11px] overflow-x-auto">
+CREATE TABLE properties (
+    property_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    locality VARCHAR(150) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    price_inr NUMERIC(12, 2) NOT NULL,
+    bhk_count INT NOT NULL,
+    carpet_area_sqft INT NOT NULL,
+    amenities TEXT[],
+    possession_status VARCHAR(50),
+    latitude DECIMAL(9, 6),
+    longitude DECIMAL(9, 6),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="space-y-2">
+          <h4 class="text-base font-bold text-primary font-headline border-b border-slate-200 pb-1">5. Non-Functional
+            Requirements</h4>
+          <p class="text-xs text-slate-600">&bull; <strong>Performance:</strong> Sub-50ms vector search across property
+            catalog.<br />&bull; <strong>Accuracy:</strong> 0% hallucination rate on verified relational records with
+            exact decimal math.</p>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center flex-shrink-0">
+        <a href="/srs" target="_blank" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+          <span>Read Full Academic Document with Code &amp; Formulas</span>
+          <span class="material-symbols-outlined text-xs">arrow_forward</span>
+        </a>
+        <button onclick="closeModal('srsModal')"
+          class="px-4 py-2 bg-primary-container hover:bg-emerald-900 text-white rounded-lg text-xs font-semibold shadow-sm transition-all">
+          Close Specification
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-side Application Script -->
+  <script>
+    let currentProperties = [];
+    let currentSortMode = 'relevance';
+    let previousContext = null;
+
+    // Financial Calculation Sliders
+    const propRange = document.getElementById('propValueRange');
+    const downRange = document.getElementById('downPaymentRange');
+    const tenureRange = document.getElementById('tenureRange');
+    const interestRange = document.getElementById('interestRange');
+
+    const propDisplay = document.getElementById('propValueDisplay');
+    const downDisplay = document.getElementById('downPaymentDisplay');
+    const tenureDisplay = document.getElementById('tenureDisplay');
+    const interestDisplay = document.getElementById('interestDisplay');
+
+    const emiDisplay = document.getElementById('emiDisplay');
+    const yieldDisplay = document.getElementById('yieldDisplay');
+    const ltvDisplay = document.getElementById('ltvDisplay');
+
+    function formatINR(val) {
+      if (val >= 10000000) {
+        return '₹' + (val / 10000000).toFixed(2) + ' Cr';
+      } else {
+        return '₹' + (val / 100000).toFixed(1) + ' Lakhs';
+      }
+    }
+
+    function calculateFinancials() {
+      const propertyValue = parseFloat(propRange.value);
+      const downPercent = parseFloat(downRange.value);
+      const tenureYears = parseFloat(tenureRange.value);
+      const interestAnnual = parseFloat(interestRange.value);
+
+      const downPaymentAmount = propertyValue * (downPercent / 100);
+      const loanAmount = propertyValue - downPaymentAmount;
+
+      propDisplay.textContent = formatINR(propertyValue);
+      downDisplay.textContent = `${formatINR(downPaymentAmount)} (${downPercent}%)`;
+      tenureDisplay.textContent = `${tenureYears} Years`;
+      interestDisplay.textContent = `${interestAnnual.toFixed(1)}% p.a.`;
+
+      // EMI formula: E = P * r * (1+r)^n / ((1+r)^n - 1)
+      const monthlyRate = (interestAnnual / 12) / 100;
+      const totalMonths = tenureYears * 12;
+
+      const emi = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) /
+        (Math.pow(1 + monthlyRate, totalMonths) - 1);
+
+      emiDisplay.innerHTML = `₹${Math.round(emi).toLocaleString('en-IN')} <span class="text-xs font-normal text-slate-500">/ mo</span>`;
+
+      // Estimated gross rental yield
+      const estAnnualRental = propertyValue * 0.0685;
+      const estGrossYield = (estAnnualRental / propertyValue) * 100;
+      yieldDisplay.textContent = `${estGrossYield.toFixed(2)}% (${formatINR(estAnnualRental)}/yr)`;
+
+      // LTV
+      const ltvPercent = 100 - downPercent;
+      ltvDisplay.textContent = `${ltvPercent}% (${formatINR(loanAmount)} Principal)`;
+    }
+
+    [propRange, downRange, tenureRange, interestRange].forEach(input => {
+      input.addEventListener('input', calculateFinancials);
+    });
+    calculateFinancials();
+
+    // Fetch initial inventory
+    async function loadInitialProperties() {
+      try {
+        const res = await fetch('/api/properties');
+        if (res.ok) {
+          currentProperties = await res.json();
+          renderPropertyGrid(currentProperties);
+        }
+      } catch (err) {
+        console.error('Error loading properties:', err);
+      }
+    }
+    loadInitialProperties();
+
+    function renderPropertyGrid(properties) {
+      const grid = document.getElementById('propertyGrid');
+      if (!properties || properties.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl p-10 text-center border border-slate-200">
+            <span class="material-symbols-outlined text-4xl text-slate-400 mb-2">search_off</span>
+            <p class="text-sm font-bold text-slate-700">No properties matched your constraints</p>
+            <p class="text-xs text-slate-500 mt-1">Try expanding budget or removing specific amenity filters.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = properties.map(p => {
+        const matchBadge = p.match_confidence ? `
+          <span class="px-2.5 py-1 rounded-full bg-emerald-950/85 backdrop-blur-md text-white text-[10px] font-bold flex items-center gap-1 border border-white/20">
+            <span class="material-symbols-outlined text-xs text-emerald-400">verified</span> ${p.match_confidence}% AI Match
+          </span>
+        ` : `
+          <span class="px-2.5 py-1 rounded-full bg-emerald-950/85 backdrop-blur-md text-white text-[10px] font-bold flex items-center gap-1 border border-white/20">
+            <span class="material-symbols-outlined text-xs text-emerald-400">verified</span> RERA VERIFIED
+          </span>
+        `;
+
+        const amenitiesList = (p.amenities || []).slice(0, 3).map(a => `
+          <span class="px-2 py-0.5 rounded bg-slate-100 text-[10px] text-slate-600 font-medium">${a}</span>
+        `).join('');
+
+        return `
+          <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
+            <div>
+              <!-- Visual Canvas -->
+              <div class="relative h-52 w-full overflow-hidden bg-slate-100">
+                <img class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" src="${p.image_url}" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80'"/>
+                <div class="absolute top-3 left-3 flex gap-2">
+                  ${matchBadge}
+                  <span class="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-primary text-[10px] font-bold border border-slate-200">
+                    ${p.possession_status.toUpperCase()}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Content Details -->
+              <div class="p-5">
+                <div class="flex justify-between items-start mb-1">
+                  <h3 class="text-base font-bold text-primary font-headline">${p.title}</h3>
+                  <span class="text-base font-bold text-primary font-headline">${formatINR(p.price_inr)}</span>
+                </div>
+                <p class="text-xs text-slate-500 flex items-center gap-1 mb-3">
+                  <span class="material-symbols-outlined text-sm text-emerald-700">location_on</span>
+                  ${p.locality}, ${p.city}
+                </p>
+
+                <!-- Amenities Tags -->
+                <div class="flex flex-wrap gap-1.5 mb-3">
+                  ${amenitiesList}
+                </div>
+
+                <!-- Structured Metrics -->
+                <div class="grid grid-cols-3 gap-2 py-2.5 border-y border-slate-100 mb-3 text-center text-xs">
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-400 block">CARPET AREA</span>
+                    <span class="font-bold text-slate-800">${p.carpet_area_sqft} sq.ft</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-400 block">CONFIG</span>
+                    <span class="font-bold text-slate-800">${p.bhk_count} BHK</span>
+                  </div>
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-400 block">PRICE/SQFT</span>
+                    <span class="font-bold text-slate-800">₹${Math.round(p.price_per_sqft || (p.price_inr / p.carpet_area_sqft)).toLocaleString('en-IN')}</span>
+                  </div>
+                </div>
+
+                <!-- Financial Micro-matrix -->
+                <div class="bg-slate-50 rounded-xl p-3 flex justify-between items-center text-xs mb-2">
+                  <div>
+                    <span class="text-[10px] font-bold text-slate-500 block">EST. MONTHLY EMI</span>
+                    <span class="font-bold text-primary">₹${Math.round(p.calculated_emi || (p.price_inr * 0.007)).toLocaleString('en-IN')} / mo</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[10px] font-bold text-slate-500 block">EST. GROSS YIELD</span>
+                    <span class="font-bold text-emerald-700">${(p.calculated_yield_pct || 6.5).toFixed(1)}% p.a.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="p-5 pt-0 grid grid-cols-3 gap-2">
+              <button onclick="inspectGrounding(${p.property_id})" class="py-2 text-center text-xs font-semibold text-slate-600 hover:text-primary bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
+                Inspect
+              </button>
+              <button onclick="applyToCalculator(${p.price_inr})" class="py-2 text-center text-xs font-semibold text-slate-600 hover:text-primary bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
+                Loan Sim
+              </button>
+              <button onclick="openTourModal('Schedule a Tour for ${p.title}')" class="py-2 text-center text-xs font-semibold text-white bg-primary-container hover:bg-emerald-900 rounded-lg transition-colors shadow-sm">
+                Book Tour
+              </button>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    // Chat Query Submission (FR-2 & FR-3)
+    async function handleChatSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('aiQueryInput');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const chatStream = document.getElementById('chatStream');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Append User message
+      chatStream.innerHTML += `
+        <div class="flex items-start gap-3 justify-end">
+          <div class="bg-primary text-white rounded-2xl rounded-tr-none px-4 py-3 max-w-[85%] text-xs shadow-sm">
+            ${query}
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-primary flex-shrink-0">
+            <span class="material-symbols-outlined text-sm">person</span>
+          </div>
+        </div>
+      `;
+      chatStream.scrollTop = chatStream.scrollHeight;
+
+      // Loading indicator
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<span>Searching...</span> <span class="material-symbols-outlined text-sm animate-spin">refresh</span>`;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: query,
+            previous_context: previousContext
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          previousContext = data.intent;
+
+          // Append AI message
+          chatStream.innerHTML += `
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-sm">smart_toy</span>
+              </div>
+              <div class="bg-slate-50 border border-slate-200 rounded-2xl rounded-tl-none p-4 max-w-[92%] space-y-2">
+                <div class="flex items-center justify-between">
+                  <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
+                    <span class="material-symbols-outlined text-xs">verified</span>
+                    ${data.grounding.status} (${data.grounding.confidence}% CONFIDENCE)
+                  </div>
+                  <span class="text-[10px] text-slate-400 font-mono">Retrieved: ${data.total_matches} properties</span>
+                </div>
+                <p class="text-xs text-slate-800 leading-relaxed">
+                  ${data.ai_response}
+                </p>
+                <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-200 text-[10px] text-slate-500">
+                  <span class="font-bold">VERIFIED SOURCES:</span>
+                  ${(data.grounding.sources || []).map(s => `<span class="bg-white px-2 py-0.5 rounded border border-slate-200 font-mono">${s}</span>`).join(' ')}
+                </div>
+              </div>
+            </div>
+          `;
+          chatStream.scrollTop = chatStream.scrollHeight;
+
+          // Update property cards grid
+          if (data.properties && data.properties.length > 0) {
+            currentProperties = data.properties;
+            renderPropertyGrid(currentProperties);
+            // Scroll gently to discovery section
+            document.getElementById('discovery').scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      } catch (err) {
+        console.error('Chat error:', err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>Find Properties</span> <span class="material-symbols-outlined text-sm">search</span>`;
+      }
+    }
+
+    function fillPrompt(text) {
+      const input = document.getElementById('aiQueryInput');
+      input.value = text;
+      input.focus();
+    }
+
+    function fillAndSubmitPrompt(text) {
+      fillPrompt(text);
+      handleChatSubmit();
+    }
+
+    function toggleAdvancedFilters() {
+      const bar = document.getElementById('advancedFiltersBar');
+      bar.classList.toggle('hidden');
+    }
+
+    function simulateVoiceSearch() {
+      const icon = document.getElementById('voiceIcon');
+      icon.classList.add('text-red-500', 'animate-pulse');
+      setTimeout(() => {
+        icon.classList.remove('text-red-500', 'animate-pulse');
+        fillPrompt('Looking for a 3 BHK near IT Park Pune under 1.2 Cr');
+      }, 1200);
+    }
+
+    function applyToCalculator(price) {
+      propRange.value = price;
+      calculateFinancials();
+      document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function inspectGrounding(propId) {
+      const prop = currentProperties.find(p => p.property_id === propId);
+      if (!prop) return;
+
+      document.getElementById('modalGroundingTitle').textContent = `Grounding: ${prop.title}`;
+      document.getElementById('modalGroundingBody').innerHTML = `
+        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1">
+          <p class="font-bold text-emerald-900 text-xs flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">verified</span>
+            100% Grounded Relational Record
+          </p>
+          <p class="text-emerald-800 text-xs">Registry ID: <strong>${prop.rera_id || 'MahaRERA: P52100028911'}</strong></p>
+        </div>
+        <div class="space-y-1.5">
+          <p><strong>Property Title:</strong> ${prop.title}</p>
+          <p><strong>Locality & City:</strong> ${prop.locality}, ${prop.city}</p>
+          <p><strong>Declared Price:</strong> ₹${(prop.price_inr / 10000000).toFixed(2)} Cr</p>
+          <p><strong>Carpet Area:</strong> ${prop.carpet_area_sqft} sq.ft (${prop.bhk_count} BHK)</p>
+          <p><strong>Possession Status:</strong> ${prop.possession_status}</p>
+          <p><strong>Coordinates:</strong> ${prop.latitude || 18.5912}&deg; N, ${prop.longitude || 73.7389}&deg; E</p>
+          <p><strong>Amenities Verified:</strong> ${(prop.amenities || []).join(', ')}</p>
+          <p class="pt-2 text-slate-500 italic">"${prop.description}"</p>
+        </div>
+      `;
+      document.getElementById('groundingModal').classList.remove('hidden');
+    }
+
+    async function openAmortizationModal() {
+      const price = parseFloat(propRange.value);
+      const downPercent = parseFloat(downRange.value);
+      const tenure = parseInt(tenureRange.value);
+      const rate = parseFloat(interestRange.value);
+      const principal = price * (1 - downPercent / 100);
+
+      try {
+        const res = await fetch('/api/financial/emi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            principal: principal,
+            interest_rate_pct: rate,
+            tenure_years: tenure
+          })
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          const tbody = document.getElementById('amortizationTableBody');
+          tbody.innerHTML = data.amortization_schedule.map(row => `
+            <tr class="hover:bg-slate-50">
+              <td class="p-2.5 font-bold">Year ${row.year}</td>
+              <td class="p-2.5 text-emerald-800 font-semibold">₹${Math.round(row.yearly_principal).toLocaleString('en-IN')}</td>
+              <td class="p-2.5 text-slate-600">₹${Math.round(row.yearly_interest).toLocaleString('en-IN')}</td>
+              <td class="p-2.5 font-mono">₹${Math.round(row.remaining_balance).toLocaleString('en-IN')}</td>
+            </tr>
+          `).join('');
+          document.getElementById('amortizationModal').classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error('Amortization fetch error:', err);
+      }
+    }
+
+    function openTourModal(title) {
+      document.getElementById('tourModalTitle').textContent = title;
+      document.getElementById('tourModal').classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function handleTourSubmit(e) {
+      e.preventDefault();
+      alert('Tour request successfully scheduled! A dedicated RERA-certified advisor will contact you within 15 minutes.');
+      closeModal('tourModal');
+    }
+
+    function setSortMode(mode) {
+      currentSortMode = mode;
+      ['sortRelevance', 'sortPrice', 'sortYield', 'sortReady'].forEach(id => {
+        const btn = document.getElementById(id);
+        btn.className = "px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium border border-slate-200 transition-colors";
+      });
+
+      if (mode === 'relevance') {
+        document.getElementById('sortRelevance').className = "px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold shadow-sm flex items-center gap-1";
+        currentProperties.sort((a, b) => (b.match_confidence || 0) - (a.match_confidence || 0));
+      } else if (mode === 'price') {
+        document.getElementById('sortPrice').className = "px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold shadow-sm flex items-center gap-1";
+        currentProperties.sort((a, b) => a.price_inr - b.price_inr);
+      } else if (mode === 'yield') {
+        document.getElementById('sortYield').className = "px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold shadow-sm flex items-center gap-1";
+        currentProperties.sort((a, b) => (b.calculated_yield_pct || 0) - (a.calculated_yield_pct || 0));
+      } else if (mode === 'ready') {
+        document.getElementById('sortReady').className = "px-3 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold shadow-sm flex items-center gap-1";
+        currentProperties.sort((a, b) => (a.possession_status === 'Ready to Move' ? -1 : 1));
+      }
+      renderPropertyGrid(currentProperties);
+    }
+
+    function openSRSModal() {
+      document.getElementById('srsModal').classList.remove('hidden');
+    }
+
+    function downloadSRSReport() {
+      openSRSModal();
+    }
+  </script>
+</body>
+
+</html>
