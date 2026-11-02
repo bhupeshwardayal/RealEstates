@@ -132,7 +132,5 @@ $$\text{Gross Rental Yield (\%)} = \left(\frac{\text{Annual Expected Rent}}{\tex
 ## 📜 Academic Attribution
 Developed in accordance with the requirements specification authored by:
 - **Bhupeshwar Dayal**
-- **Institution:** G. H. Raisoni College of Engineering, Nagpur
-- **Department:** Information Technology
-- **Specification:** Software Requirements Specification (SRS v1.0)
+👉 https://realestates-ai-advisor.onrender.com
 
